@@ -33,8 +33,8 @@ DevMzansi is a free community built for young South African developers — wheth
 
 | Page | Description |
 |------|-------------|
-| [Home](index.html) | Landing page |
-| [Jobs](jobs.html) | Junior dev opportunities in SA |
+| [Home](https://dev-mzansi.vercel.app/) | Landing page |
+| [Jobs](https://dev-mzansi.vercel.app/jobs) | Junior dev opportunities in SA |
 
 ---
 
@@ -44,9 +44,9 @@ Hiring junior South African developers? Post directly to our community.
 
 | Package | Price |
 |---------|-------|
-| Basic · 7 days | R250 |
+| Basic · 7 days | R200 |
 | Featured · 14 days | R500 |
-| Monthly partner | R1,500/month |
+| Monthly partner | R1000/month |
 
 📧 Contact: Ssibiya026m@ai.wethinkcode.co.za
 
