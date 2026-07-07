@@ -33,7 +33,7 @@ DevMzansi is a free community built for young South African developers — wheth
 
 | Page | Description |
 |------|-------------|
-| [Home](https://dev-mzansi.vercel.app/) | Landing page |
+| [Home](https://dev-mzansi-d8lz.vercel.app/) | Landing page |
 | [Jobs](https://dev-mzansi.vercel.app/jobs) | Junior dev opportunities in SA |
 
 ---
