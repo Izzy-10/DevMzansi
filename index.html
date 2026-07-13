@@ -297,6 +297,80 @@
       border-radius: 100px;
     }
 
+    /* SPONSORS */
+    .sponsors-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+      text-align: center;
+    }
+
+    .sponsors-section .section-label { text-align: center; }
+
+    .sponsors-section h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .sponsors-section > p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .sponsor-tiers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      text-align: left;
+    }
+
+    .sponsor-tier {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .sponsor-tier:hover { border-color: rgba(201,168,76,0.35); }
+
+    .sponsor-tier .tier-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .sponsor-tier p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .btn-sponsor {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: #000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.6rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: transform 0.15s, opacity 0.15s;
+    }
+    .btn-sponsor:hover { transform: translateY(-2px); opacity: 0.92; }
+
     /* FINAL CTA */
     .final-cta {
       max-width: 600px;
@@ -354,6 +428,7 @@
       .hero { padding: 4rem 1.25rem 3rem; }
       .stats { gap: 2rem; }
       .section { padding: 0 1.25rem 4rem; }
+      .sponsors-section { padding: 0 1.25rem 4rem; }
       .final-cta { padding: 0 1.25rem 5rem; }
     }
   </style>
@@ -367,6 +442,7 @@
   <div class="nav-logo">Dev<span>Mzansi</span></div>
   <div style="display:flex;align-items:center;gap:1rem;">
     <a href="jobs.html" style="color:#888;text-decoration:none;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;font-weight:500;">Jobs</a>
+    <a href="#sponsors" style="color:#888;text-decoration:none;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;font-weight:500;">Sponsors</a>
     <a href="#join" class="nav-cta">Join Free</a>
   </div>
 </nav>
@@ -467,6 +543,32 @@
   </div>
 </div>
 
+<!-- SPONSORS -->
+<section class="sponsors-section" id="sponsors">
+  <div class="section-label">Support the mission</div>
+  <h2>Help us reach more young SA developers.</h2>
+  <p>DevMzansi is free and always will be. Sponsors help us cover hosting, run events, and reach devs in underserved areas like rural KZN.</p>
+
+  <div class="sponsor-tiers">
+    <div class="sponsor-tier">
+      <div class="tier-name">Community Sponsor</div>
+      <p>Your name or logo featured on this page and shouted out in the community.</p>
+    </div>
+    <div class="sponsor-tier">
+      <div class="tier-name">Partner Sponsor</div>
+      <p>Priority job postings, logo placement, and a shoutout across WhatsApp & Discord.</p>
+    </div>
+    <div class="sponsor-tier">
+      <div class="tier-name">Custom Partnership</div>
+      <p>Hackathons, bursaries, or bootcamp sponsorships — let's build something together.</p>
+    </div>
+  </div>
+
+  <a href="mailto:Ssibiya026m@ai.wethinkcode.co.za?subject=Sponsoring%20DevMzansi" class="btn-sponsor">
+    🤝 Become a Sponsor
+  </a>
+</section>
+
 <!-- FINAL CTA -->
 <section class="final-cta">
   <h2>Join <em>free</em>.<br/>Start today.</h2>
@@ -490,19 +592,3 @@
 
 </body>
 </html>
-<button id="theme-toggle">🌓 Toggle Theme</button>
-<script>
-  // On load: use saved theme, or fall back to system default
-  const saved = localStorage.getItem('theme');
-  const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const theme = saved || (systemPrefersDark ? 'dark' : 'light');
-  document.documentElement.setAttribute('data-theme', theme);
-
-  // Toggle on click
-  document.getElementById('theme-toggle').addEventListener('click', () => {
-    const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  });
-</script>
