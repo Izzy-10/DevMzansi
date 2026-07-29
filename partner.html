@@ -76,6 +76,51 @@
     }
     .nav-cta:hover { background: var(--gold-soft); }
 
+    /* MENU */
+    .menu-wrap { position: relative; }
+    .menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px;
+    }
+    .menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+    .menu-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.6rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      min-width: 180px;
+      padding: 0.5rem;
+      display: none;
+      flex-direction: column;
+      z-index: 200;
+    }
+    .menu-dropdown.open { display: flex; }
+    .menu-dropdown a {
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    .menu-dropdown a:hover { background: var(--gold-dim); color: var(--gold); }
+
     /* HERO */
     .hero {
       max-width: 640px;
@@ -117,6 +162,21 @@
       margin: 0 auto;
       line-height: 1.7;
     }
+
+    .hero-statement {
+      font-size: 1.05rem;
+      color: var(--white);
+      max-width: 560px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.75;
+      text-align: left;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .hero-statement strong { color: var(--gold); }
 
     /* CTA CARDS */
     .cta-cards {
@@ -329,6 +389,17 @@
   <div class="nav-right">
     <a href="index.html" class="nav-link">Home</a>
     <a href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" class="nav-cta" target="_blank">Join Free</a>
+    <div class="menu-wrap">
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu-dropdown" id="menu-dropdown">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="partner.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -336,6 +407,7 @@
 <section class="hero">
   <div class="hero-badge">Get in Touch</div>
   <h1>Partner with <em>DevMzansi</em></h1>
+  <p class="hero-statement">When you partner with DevMzansi, you're helping build <strong>a pipeline of diverse, work-ready talent</strong> — from software development to any skill someone's ready to learn. You're funding <strong>real, lasting impact</strong> in communities that are too often overlooked, like rural KZN. And you're passing on what you know through <strong>mentorship and work-readiness support</strong> that turns potential into opportunity. This isn't a one-off donation — it's an investment in people who are ready to work, and a community that shows up for them.</p>
   <p>Whether you're a sponsor, a partner, or just curious — tell us what's on your mind and we'll get back to you.</p>
 </section>
 
@@ -416,6 +488,16 @@
     if (radio) radio.checked = true;
   }
 
+  function toggleMenu() {
+    document.getElementById('menu-dropdown').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    const wrap = document.querySelector('.menu-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      document.getElementById('menu-dropdown').classList.remove('open');
+    }
+  });
+
   document.getElementById('enquiry-form-el').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -438,3 +520,4 @@
 
 </body>
 </html>
+
