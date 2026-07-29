@@ -71,7 +71,50 @@
     }
     .nav-cta:hover { background: var(--gold-soft); }
 
-    /* HERO */
+    /* MENU */
+    .menu-wrap { position: relative; }
+    .menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px;
+    }
+    .menu-btn span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+    }
+    .menu-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 0.6rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      min-width: 180px;
+      padding: 0.5rem;
+      display: none;
+      flex-direction: column;
+      z-index: 200;
+    }
+    .menu-dropdown.open { display: flex; }
+    .menu-dropdown a {
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      color: var(--white);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+    }
+    .menu-dropdown a:hover { background: var(--gold-dim); color: var(--gold); }
     .hero {
       max-width: 720px;
       margin: 0 auto;
@@ -368,6 +411,17 @@
   <div style="display:flex;align-items:center;gap:1rem;">
     <a href="jobs.html" style="color:#888;text-decoration:none;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;font-weight:500;">Jobs</a>
     <a href="#join" class="nav-cta">Join Free</a>
+    <div class="menu-wrap">
+      <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="menu-dropdown" id="menu-dropdown">
+        <a href="index.html">Home</a>
+        <a href="jobs.html">Jobs</a>
+        <a href="partner.html">Contact Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -489,6 +543,17 @@
   Built with 🖤 by <span>Nation</span> · DevMzansi © 2026 · <a href="jobs.html" style="color:#c9a84c;text-decoration:none;">Jobs</a> · <a href="privacy.html" style="color:#c9a84c;text-decoration:none;">Privacy Policy</a>
 </footer>
 
+<script>
+  function toggleMenu() {
+    document.getElementById('menu-dropdown').classList.toggle('open');
+  }
+  document.addEventListener('click', function(e) {
+    const wrap = document.querySelector('.menu-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      document.getElementById('menu-dropdown').classList.remove('open');
+    }
+  });
+</script>
+
 </body>
 </html>
-
