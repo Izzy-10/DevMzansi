@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jobs & Opportunities — DevMzansi</title>
+  <title>Partner with DevMzansi</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -569,37 +569,42 @@
 <section class="hero">
   <div class="hero-badge">
     <span class="pulse"></span>
-    Opportunities updated regularly
+    Get in touch
   </div>
-  <h1>Jobs for <em>all</em> of Mzansi.</h1>
-  <p>Junior roles, internships, learnerships, and opportunities across every field — open to anyone in the DevMzansi community. Free to browse, always.</p>
-  <a href="hire.html" class="post-job-btn">
-    💼 Post a job — from R250
-  </a>
+  <h1>Partner with <em>DevMzansi</em>.</h1>
+  <p>Hire talent, sponsor learners, or fund impact — here's how a partnership with DevMzansi works, and what it costs to post an opportunity.</p>
 </section>
-
-<!-- FILTERS -->
-<div class="filters-wrap">
-  <div class="filters">
-    <button class="filter-btn active" onclick="filterJobs('all', this)">All</button>
-    <button class="filter-btn" onclick="filterJobs('fulltime', this)">Full-time</button>
-    <button class="filter-btn" onclick="filterJobs('internship', this)">Internship</button>
-    <button class="filter-btn" onclick="filterJobs('learnership', this)">Learnership</button>
-    <button class="filter-btn" onclick="filterJobs('remote', this)">Remote</button>
-  </div>
-</div>
 
 <!-- JOBS -->
 <div class="jobs-wrap">
-  <div class="jobs-count" id="jobs-count">Showing all opportunities</div>
 
-  <div id="jobs-list">
-
-    <div class="empty">
-      <h3>No live opportunities right now</h3>
-      <p>Check back soon, or join the community so you don't miss the next one.</p>
+  <!-- PARTNER WITH DEVMZANSI -->
+  <div class="how-we-work">
+    <h3>Partner with DevMzansi — how we work</h3>
+    <p class="how-intro">Whether you're hiring, sponsoring, or funding impact, the process is simple:</p>
+    <div class="steps">
+      <div class="step-card">
+        <span class="step-num">1</span>
+        <h4>Reach out</h4>
+        <p>Tell us what you need — hiring talent, sponsoring learners, or funding impact — through our <a href="partner.html">Partner form</a>.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">2</span>
+        <h4>We understand your goals</h4>
+        <p>We'll get back to you to understand your budget, timeline, and what a good outcome looks like for you.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">3</span>
+        <h4>We match you</h4>
+        <p>We connect you with the right community members, or set up your listing, sponsorship, or funding plan.</p>
+      </div>
+      <div class="step-card">
+        <span class="step-num">4</span>
+        <h4>You see real impact</h4>
+        <p>Real people, learning real skills, landing real opportunities — with visibility into what your partnership made possible.</p>
+      </div>
     </div>
-
+    <a href="partner.html" class="contact-btn" style="display:inline-block;margin-top:0.5rem;">Start a Partnership →</a>
   </div>
 
   <!-- POST A JOB CTA -->
@@ -631,28 +636,6 @@
 </footer>
 
 <script>
-  function filterJobs(type, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    const cards = document.querySelectorAll('.job-card');
-    let visible = 0;
-
-    cards.forEach(card => {
-      if (type === 'all' || card.dataset.type?.includes(type)) {
-        card.style.display = 'flex';
-        visible++;
-      } else {
-        card.style.display = 'none';
-      }
-    });
-
-    document.getElementById('jobs-count').textContent =
-      type === 'all'
-        ? `Showing all opportunities`
-        : `Showing ${visible} ${type} opportunit${visible === 1 ? 'y' : 'ies'}`;
-  }
-
   function toggleMenu() {
     document.getElementById('menu-dropdown').classList.toggle('open');
   }
