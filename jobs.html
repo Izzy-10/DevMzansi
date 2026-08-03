@@ -223,6 +223,23 @@
     }
 
     /* FILTERS */
+    .trust-banner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem 1.5rem;
+    }
+
+    .trust-banner p {
+      background: var(--green-dim);
+      border: 1px solid rgba(62,207,142,0.25);
+      color: #1f7a4d;
+      font-size: 0.82rem;
+      line-height: 1.6;
+      padding: 0.9rem 1.1rem;
+      border-radius: 8px;
+      margin: 0;
+    }
+
     .filters-wrap {
       max-width: 900px;
       margin: 0 auto;
@@ -595,6 +612,11 @@
   </a>
 </section>
 
+<!-- TRUST MESSAGE -->
+<div class="trust-banner">
+  <p>🔒 For your safety, apply only through the official link shown on this listing. DevMzansi will never ask you to pay to apply.</p>
+</div>
+
 <!-- FILTERS -->
 <div class="filters-wrap">
   <div class="filters">
@@ -609,6 +631,33 @@
 <!-- JOBS -->
 <div class="jobs-wrap">
   <div class="jobs-count" id="jobs-count">Showing all opportunities</div>
+
+  <!-- HOW TO ADD A REAL JOB:
+       Copy the block below into #jobs-list, fill in the details, and delete
+       the "empty" div once you have at least one live listing.
+       The Apply button links straight to the employer's own application
+       page or email — DevMzansi doesn't collect applications itself.
+
+  <div class="job-card" data-type="fulltime">
+    <div class="job-left">
+      <div class="job-top">
+        <span class="job-title">Job Title Here</span>
+        <span class="badge badge-new">New</span>
+      </div>
+      <div class="job-company">Company Name · Location</div>
+      <div class="job-meta">
+        <span>🕐 Full-time</span>
+        <span>💰 Salary/stipend</span>
+        <span>📍 Remote / On-site / Hybrid</span>
+      </div>
+    </div>
+    <div class="job-right">
+      <a href="https://company-application-link-or-mailto" class="apply-btn" target="_blank" rel="noopener">Apply →</a>
+      <span class="job-date">Posted today</span>
+    </div>
+  </div>
+
+  -->
 
   <div id="jobs-list">
 
