@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
   <link rel="icon" type="image/png" sizes="192x192" href="android-chrome-192x192.png"/>
   <link rel="shortcut icon" href="favicon.ico"/>
-<title>Partner with DevMzansi</title>
-  <meta name="description" content="Hire talent, sponsor learners, or fund impact — see how partnering with DevMzansi works and what it costs to post an opportunity."/>
+  <title>Skills & Resources — DevMzansi</title>
+  <meta name="description" content="Free learning resources for any skill — tech, trades, business, and more. Curated for the DevMzansi community."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://dev-mzansi.vercel.app/hire.html"/>
-  <meta property="og:title" content="Partner with DevMzansi"/>
-  <meta property="og:description" content="Hire talent, sponsor learners, or fund impact — see how partnering with DevMzansi works and what it costs to post an opportunity."/>
+  <meta property="og:url" content="https://dev-mzansi.vercel.app/skills.html"/>
+  <meta property="og:title" content="Skills & Resources — DevMzansi"/>
+  <meta property="og:description" content="Free learning resources for any skill — tech, trades, business, and more. Curated for the DevMzansi community."/>
   <meta property="og:image" content="https://dev-mzansi.vercel.app/og-image.jpg"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Partner with DevMzansi"/>
-  <meta name="twitter:description" content="Hire talent, sponsor learners, or fund impact — see how partnering with DevMzansi works and what it costs to post an opportunity."/>
+  <meta name="twitter:title" content="Skills & Resources — DevMzansi"/>
+  <meta name="twitter:description" content="Free learning resources for any skill — tech, trades, business, and more. Curated for the DevMzansi community."/>
   <meta name="twitter:image" content="https://dev-mzansi.vercel.app/og-image.jpg"/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -72,11 +72,7 @@
     }
     .nav-logo span { color: var(--white); }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
 
     .nav-link {
       color: var(--muted);
@@ -126,7 +122,7 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      min-width: 180px;
+      min-width: 200px;
       padding: 0.5rem;
       display: none;
       flex-direction: column;
@@ -143,6 +139,8 @@
       font-weight: 500;
     }
     .menu-dropdown a:hover { background: var(--gold-dim); color: var(--gold); }
+
+    /* HERO */
     .hero {
       max-width: 700px;
       margin: 0 auto;
@@ -189,10 +187,7 @@
       margin-bottom: 1rem;
     }
 
-    .hero h1 em {
-      font-style: normal;
-      color: var(--gold);
-    }
+    .hero h1 em { font-style: normal; color: var(--gold); }
 
     .hero p {
       color: var(--muted);
@@ -202,7 +197,7 @@
       line-height: 1.7;
     }
 
-    .post-job-btn {
+    .suggest-btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -217,7 +212,7 @@
       text-decoration: none;
       transition: background 0.2s, border-color 0.2s;
     }
-    .post-job-btn:hover {
+    .suggest-btn:hover {
       background: rgba(201,168,76,0.18);
       border-color: rgba(201,168,76,0.4);
     }
@@ -253,21 +248,21 @@
       color: var(--gold);
     }
 
-    /* JOBS LIST */
-    .jobs-wrap {
+    /* RESOURCES LIST */
+    .resources-wrap {
       max-width: 900px;
       margin: 0 auto;
       padding: 0 2rem 6rem;
     }
 
-    .jobs-count {
+    .resources-count {
       font-size: 0.8rem;
       color: var(--muted2);
       margin-bottom: 1.25rem;
       font-family: 'Space Grotesk', sans-serif;
     }
 
-    .job-card {
+    .resource-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -280,21 +275,15 @@
       transition: border-color 0.2s, background 0.2s;
       text-decoration: none;
       color: inherit;
-      cursor: pointer;
     }
-    .job-card:hover {
+    .resource-card:hover {
       border-color: var(--gold-border);
       background: var(--surface2);
     }
 
-    .job-card.featured {
-      border-color: var(--gold-border);
-      background: linear-gradient(135deg, rgba(201,168,76,0.05) 0%, var(--surface) 100%);
-    }
+    .resource-left { flex: 1; }
 
-    .job-left { flex: 1; }
-
-    .job-top {
+    .resource-top {
       display: flex;
       align-items: center;
       gap: 0.6rem;
@@ -302,7 +291,7 @@
       flex-wrap: wrap;
     }
 
-    .job-title {
+    .resource-title {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem;
       font-weight: 600;
@@ -319,43 +308,25 @@
       border-radius: 100px;
     }
 
-    .badge-featured {
-      background: var(--gold-dim);
-      border: 1px solid var(--gold-border);
-      color: var(--gold);
-    }
-
     .badge-new {
       background: var(--green-dim);
       border: 1px solid rgba(62,207,142,0.25);
       color: var(--green);
     }
 
-    .badge-internship {
-      background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.25);
-      color: #818cf8;
-    }
-
-    .badge-learnership {
-      background: rgba(251,146,60,0.1);
-      border: 1px solid rgba(251,146,60,0.25);
-      color: #fb923c;
-    }
-
-    .job-company {
+    .resource-desc {
       font-size: 0.85rem;
       color: var(--muted);
       margin-bottom: 0.6rem;
     }
 
-    .job-meta {
+    .resource-meta {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
     }
 
-    .job-meta span {
+    .resource-meta span {
       font-size: 0.78rem;
       color: var(--muted2);
       display: flex;
@@ -363,15 +334,7 @@
       gap: 0.3rem;
     }
 
-    .job-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.75rem;
-      flex-shrink: 0;
-    }
-
-    .apply-btn {
+    .visit-btn {
       background: var(--gold);
       color: #000;
       font-family: 'Space Grotesk', sans-serif;
@@ -381,14 +344,10 @@
       border-radius: 6px;
       text-decoration: none;
       white-space: nowrap;
+      flex-shrink: 0;
       transition: background 0.2s;
     }
-    .apply-btn:hover { background: var(--gold-soft); }
-
-    .job-date {
-      font-size: 0.73rem;
-      color: var(--muted2);
-    }
+    .visit-btn:hover { background: var(--gold-soft); }
 
     /* EMPTY STATE */
     .empty {
@@ -403,8 +362,8 @@
       margin-bottom: 0.5rem;
     }
 
-    /* POST A JOB CTA */
-    .post-cta {
+    /* SUGGEST CTA */
+    .suggest-cta {
       background: var(--surface);
       border: 1px dashed var(--border);
       border-radius: 10px;
@@ -413,46 +372,17 @@
       margin-top: 1.5rem;
     }
 
-    .post-cta h3 {
+    .suggest-cta h3 {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 0.4rem;
     }
 
-    .post-cta p {
+    .suggest-cta p {
       font-size: 0.85rem;
       color: var(--muted);
       margin-bottom: 1.25rem;
-    }
-
-    .pricing {
-      display: flex;
-      gap: 0.75rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 1.25rem;
-    }
-
-    .price-tag {
-      background: var(--gold-dim);
-      border: 1px solid var(--gold-border);
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      text-align: center;
-    }
-
-    .price-tag .amount {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--gold);
-      display: block;
-    }
-
-    .price-tag .label {
-      font-size: 0.72rem;
-      color: var(--muted);
     }
 
     .contact-btn {
@@ -469,75 +399,6 @@
     }
     .contact-btn:hover { background: var(--gold-soft); }
 
-    /* HOW WE WORK */
-    .how-we-work {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 2rem;
-      margin-top: 1.5rem;
-    }
-
-    .how-we-work h3 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .how-intro {
-      font-size: 0.88rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .step-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1.1rem;
-      position: relative;
-    }
-
-    .step-num {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      height: 24px;
-      background: var(--gold-dim);
-      border: 1px solid var(--gold-border);
-      color: var(--gold);
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 0.78rem;
-      border-radius: 50%;
-      margin-bottom: 0.6rem;
-    }
-
-    .step-card h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.92rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-      color: var(--white);
-    }
-
-    .step-card p {
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-
-    .step-card a { color: var(--gold); }
-
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
@@ -551,10 +412,8 @@
     @media (max-width: 600px) {
       nav { padding: 1rem 1.25rem; }
       .hero { padding: 3.5rem 1.25rem 2rem; }
-      .filters-wrap, .jobs-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .job-card { flex-direction: column; }
-      .job-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
-      .pricing { gap: 0.5rem; }
+      .filters-wrap, .resources-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .resource-card { flex-direction: column; }
     }
   </style>
 </head>
@@ -589,70 +448,67 @@
 <section class="hero">
   <div class="hero-badge">
     <span class="pulse"></span>
-    Get in touch
+    Resources updated regularly
   </div>
-  <h1>Partner with <em>DevMzansi</em>.</h1>
-  <p>Hire talent, sponsor learners, or fund impact — here's how a partnership with DevMzansi works, and what it costs to post an opportunity.</p>
+  <h1>Skills for <em>all</em> of Mzansi.</h1>
+  <p>Free learning resources for any skill — tech, trades, business, creative, and more. Curated by the community, for the community.</p>
+  <a href="mailto:Ssibiya026m@ai.wethinkcode.co.za?subject=Suggest a Resource for DevMzansi" class="suggest-btn">
+    💡 Suggest a resource
+  </a>
 </section>
 
-<!-- JOBS -->
-<div class="jobs-wrap">
+<!-- FILTERS -->
+<div class="filters-wrap">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterResources('all', this)">All</button>
+    <button class="filter-btn" onclick="filterResources('tech', this)">Tech</button>
+    <button class="filter-btn" onclick="filterResources('business', this)">Business</button>
+    <button class="filter-btn" onclick="filterResources('trades', this)">Trades</button>
+    <button class="filter-btn" onclick="filterResources('creative', this)">Creative</button>
+    <button class="filter-btn" onclick="filterResources('life', this)">Life Skills</button>
+  </div>
+</div>
 
-  <!-- PARTNER WITH DEVMZANSI -->
-  <div class="how-we-work">
-    <h3>Partner with DevMzansi — how we work</h3>
-    <p class="how-intro">Whether you're hiring, sponsoring, or funding impact, the process is simple:</p>
-    <div class="steps">
-      <div class="step-card">
-        <span class="step-num">1</span>
-        <h4>Reach out</h4>
-        <p>Tell us what you need — hiring talent, sponsoring learners, or funding impact — through our <a href="partner.html">Partner form</a>.</p>
+<!-- RESOURCES -->
+<div class="resources-wrap">
+  <div class="resources-count" id="resources-count">Showing all resources</div>
+
+  <!-- HOW TO ADD A REAL RESOURCE:
+       Copy the block below into #resources-list, fill in the details, and
+       delete the "empty" div once you have at least one live resource.
+
+  <a href="https://example.com/resource-link" class="resource-card" data-type="tech" target="_blank" rel="noopener">
+    <div class="resource-left">
+      <div class="resource-top">
+        <span class="resource-title">Resource Name Here</span>
+        <span class="badge badge-new">New</span>
       </div>
-      <div class="step-card">
-        <span class="step-num">2</span>
-        <h4>We understand your goals</h4>
-        <p>We'll get back to you to understand your budget, timeline, and what a good outcome looks like for you.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-num">3</span>
-        <h4>We match you</h4>
-        <p>We connect you with the right community members, or set up your listing, sponsorship, or funding plan.</p>
-      </div>
-      <div class="step-card">
-        <span class="step-num">4</span>
-        <h4>You see real impact</h4>
-        <p>Real people, learning real skills, landing real opportunities — with visibility into what your partnership made possible.</p>
+      <div class="resource-desc">One-line description of what this teaches and why it's useful.</div>
+      <div class="resource-meta">
+        <span>🎓 Beginner</span>
+        <span>⏱️ Self-paced</span>
+        <span>💰 Free</span>
       </div>
     </div>
-    <a href="partner.html" class="contact-btn" style="display:inline-block;margin-top:0.5rem;">Start a Partnership →</a>
-  </div>
+    <span class="visit-btn">Visit →</span>
+  </a>
 
-  <!-- USE OF FUNDS SUMMARY -->
-  <div class="how-we-work" style="margin-top:1.5rem;">
-    <h3>Where your funding goes</h3>
-    <p class="how-intro" style="margin-bottom:0.75rem;">Partner and sponsor funds help DevMzansi deliver learning and opportunity access, maintain the platform, build employer relationships, reach underserved communities, pay the people and services needed to do the work, meet compliance needs, measure impact, and remain sustainable. If funding is restricted to a specific purpose, we will use it for that purpose unless we agree otherwise in writing. Full detail in our <a href="terms.html">Terms & Conditions</a>.</p>
-  </div>
+  -->
 
-  <!-- POST A JOB CTA -->
-  <div class="post-cta">
-    <h3>Hiring from the DevMzansi community?</h3>
-    <p>Post your opportunity directly to an engaged community of young South Africans — any field, any skill level.</p>
-    <div class="pricing">
-      <div class="price-tag">
-        <span class="amount">R250</span>
-        <span class="label">Basic · 7 days</span>
-      </div>
-      <div class="price-tag">
-        <span class="amount">R500</span>
-        <span class="label">Featured · 14 days</span>
-      </div>
-      <div class="price-tag">
-        <span class="amount">R1,500</span>
-        <span class="label">Partner · Monthly</span>
-      </div>
+  <div id="resources-list">
+
+    <div class="empty">
+      <h3>No resources listed yet</h3>
+      <p>Check back soon, or join the community so you don't miss the next one.</p>
     </div>
-    <a href="submit-opportunity.html" class="contact-btn">Submit an Opportunity →</a>
-    <p style="font-size:0.78rem;color:var(--muted);margin-top:0.85rem;">Opportunities are reviewed before publication, and applicants apply directly to the employer or authorised contact.</p>
+
+  </div>
+
+  <!-- SUGGEST A RESOURCE CTA -->
+  <div class="suggest-cta">
+    <h3>Know a great free resource?</h3>
+    <p>Suggest tutorials, courses, tools, or guides for the DevMzansi community — any skill, any field.</p>
+    <a href="mailto:Ssibiya026m@ai.wethinkcode.co.za?subject=Suggest a Resource for DevMzansi" class="contact-btn">Suggest a Resource →</a>
   </div>
 </div>
 
@@ -663,6 +519,28 @@
 </footer>
 
 <script>
+  function filterResources(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const cards = document.querySelectorAll('.resource-card');
+    let visible = 0;
+
+    cards.forEach(card => {
+      if (type === 'all' || card.dataset.type?.includes(type)) {
+        card.style.display = 'flex';
+        visible++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    document.getElementById('resources-count').textContent =
+      type === 'all'
+        ? `Showing all resources`
+        : `Showing ${visible} resource${visible === 1 ? '' : 's'}`;
+  }
+
   function toggleMenu() {
     document.getElementById('menu-dropdown').classList.toggle('open');
   }
