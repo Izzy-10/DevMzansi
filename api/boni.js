@@ -1,11 +1,10 @@
 export default async function handler(req, res) {
-  // Allow CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST') return res.status(405).json({ reply: 'Method not allowed' });
 
   const SYSTEM_PROMPT = `You are Boni, the friendly and helpful AI assistant for DevMzansi — a free online community for young South African developers. You were created by Nation (Sizwe Sibiya), the founder of DevMzansi.
 
@@ -34,7 +33,16 @@ You can help with:
 Keep responses concise and helpful. Always encourage the person to join the DevMzansi community if relevant.`;
 
   try {
-    const { messages } = req.body;
+    let body = req.body;
+    if (typeof body === 'string') {
+      body = JSON.parse(body);
+    }
+
+    const messages = body?.messages || [];
+
+    if (!messages.length) {
+      return res.status(400).json({ reply: 'No messages provided' });
+    }
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -52,10 +60,17 @@ Keep responses concise and helpful. Always encourage the person to join the DevM
     });
 
     const data = await response.json();
-    const reply = data.content?.[0]?.text || "Eish, something went wrong. Try again mfethu 🙏";
-    res.status(200).json({ reply });
+
+    if (data.error) {
+      console.error('Anthropic error:', data.error);
+      return res.status(500).json({ reply: `Eish, API error: ${data.error.message}` });
+    }
+
+    const reply = data.content?.[0]?.text || "Eish, no response from Anthropic 🙏";
+    return res.status(200).json({ reply });
 
   } catch (err) {
-    res.status(500).json({ reply: "Eish, I had trouble connecting. Try again mfethu 🙏" });
+    console.error('Handler error:', err);
+    return res.status(500).json({ reply: `Eish, something broke: ${err.message}` });
   }
 }
