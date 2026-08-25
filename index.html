@@ -633,7 +633,44 @@
 
 <!-- FOOTER -->
 <footer>
-  Built with 🖤 by <span>Nation</span> · DevMzansi © 2026 · <a href="jobs.html" style="color:#c9a84c;text-decoration:none;">Jobs</a> · <a href="privacy.html" style="color:#c9a84c;text-decoration:none;">Privacy Policy</a> · <a href="terms.html" style="color:#c9a84c;text-decoration:none;">Terms</a> · <a href="assistant.html" style="color:#c9a84c;text-decoration:none;">Ask Boni 🤖</a> · <a href="https://ko-fi.com/devmzansi" target="_blank" style="color:#FF5E5B;text-decoration:none;">☕ Support us</a>
+  Built with 🖤 by <span>Nation</span> · DevMzansi © 2026 · <a href="jobs.html" style="color:#c9a84c;text-decoration:none;">Jobs</a> · <a href="privacy.html" style="color:#c9a84c;text-decoration:none;">Privacy Policy</a> · <a href="terms.html" style="color:#c9a84c;text-decoration:none;">Terms</a> · <a href="assistant.html" style="color:#c9a84c;text-decoration:none;">Ask Boni 🤖</a> · <a href="https://ko-fi.com/devmzansi" target="_blank" style="color:#FF5E5B;text-decoration:none;">☕ Support us</a> · <a href="https://www.facebook.com/DevMzansi?mibextid=rS40aB7S9Ucbxw6v" target="_blank" style="color:#1877F2;text-decoration:none;">📘 Facebook</a>
+</footer>
+
+<!-- CONTACT US SECTION -->
+<section style="background:#f5f5f5;border-top:1px solid #e0e0e0;padding:4rem 2rem;text-align:center;">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="display:inline-block;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);color:#c9a84c;font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:0.3rem 0.85rem;border-radius:100px;margin-bottom:1.25rem;">Contact Us</div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.5rem,4vw,2rem);font-weight:700;letter-spacing:-0.02em;margin-bottom:0.75rem;">Get in touch with <span style="color:#c9a84c;">DevMzansi</span></h2>
+    <p style="color:#666;font-size:0.95rem;margin-bottom:2rem;line-height:1.7;">Have a question, want to partner with us, or just want to say hi? We'd love to hear from you.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="mailto:Ssibiya026m@ai.wethinkcode.co.za" style="display:inline-flex;align-items:center;gap:0.5rem;background:#c9a84c;color:#000;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.88rem;padding:0.7rem 1.4rem;border-radius:8px;text-decoration:none;">📧 Email Us</a>
+      <a href="https://www.facebook.com/DevMzansi?mibextid=rS40aB7S9Ucbxw6v" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:#1877F2;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.88rem;padding:0.7rem 1.4rem;border-radius:8px;text-decoration:none;">📘 Facebook</a>
+      <a href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;background:#25D366;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.88rem;padding:0.7rem 1.4rem;border-radius:8px;text-decoration:none;">💬 WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- BONI FLOATING WIDGET -->
+<div id="boni-widget" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;">
+  <div id="boni-bubble" style="display:none;background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem 1.25rem;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,0.1);font-size:0.85rem;line-height:1.5;color:#111;">
+    <strong style="color:#c9a84c;">Sawubona! 👋</strong><br/>I'm Boni — ask me anything about DevMzansi or coding 🇿🇦
+    <div style="margin-top:0.75rem;">
+      <a href="assistant.html" style="background:#c9a84c;color:#000;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.8rem;padding:0.45rem 1rem;border-radius:6px;text-decoration:none;display:inline-block;">Chat with Boni →</a>
+    </div>
+  </div>
+  <button onclick="toggleBoni()" style="width:56px;height:56px;border-radius:50%;background:#c9a84c;border:none;cursor:pointer;font-size:1.4rem;box-shadow:0 4px 16px rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🤖</button>
+</div>
+
+<script>
+  function toggleBoni() {
+    const bubble = document.getElementById('boni-bubble');
+    bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
+  }
+  // Show bubble after 3 seconds
+  setTimeout(() => {
+    document.getElementById('boni-bubble').style.display = 'block';
+  }, 3000);
+</script>
 </footer>
 
 <script>
