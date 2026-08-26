@@ -690,12 +690,15 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     } catch (err) {
       removeTyping();
+      console.error('Boni error:', err);
       addMessage('bot', 'Eish, I had trouble connecting. Check your internet and try again 🙏');
+    } finally {
+      isLoading = false;
+      document.getElementById('sendBtn').disabled = false;
+      input.focus();
     }
 
-    isLoading = false;
-    document.getElementById('sendBtn').disabled = false;
-    input.focus();
+    return;
   }
 </script>
 
