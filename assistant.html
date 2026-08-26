@@ -481,9 +481,8 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
   let isLoading = false;
   let isListening = false;
   let recognition = null;
+  let currentUtterance = null;
   let isSpeaking = false;
-
-  // --- SPEECH TO TEXT ---
   function toggleMic() {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
       alert('Voice input is not supported on this browser. Try Chrome.');
@@ -534,9 +533,6 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
   }
 
   // --- TEXT TO SPEECH ---
-  let currentUtterance = null;
-  let isSpeaking = false;
-
   function speakText(text, btnEl) {
     if (!('speechSynthesis' in window)) return;
 
