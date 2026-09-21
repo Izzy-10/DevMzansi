@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Boni — DevMzansi Assistant</title>
+  <title>Princess 👸 — DevMzansi Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -395,7 +395,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
   <a href="jobs.html">Jobs</a>
-  <a href="assistant.html">Ask Boni 🤖</a>
+  <a href="assistant.html">Ask Princess 👸</a>
   <a href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank">Join WhatsApp</a>
   <a href="https://discord.gg/PyebGZGcb" target="_blank">Join Discord</a>
 </div>
@@ -403,8 +403,8 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-badge">🤖 AI Powered</div>
-  <h1>Meet <em>Boni</em> — your DevMzansi PA</h1>
-  <p>Ask anything about coding, applications, jobs, government services, or life skills. Boni speaks English & isiZulu 🇿🇦</p>
+  <h1>Meet <em>Princess</em> 👸 — your DevMzansi PA</h1>
+  <p>Ask anything about coding, applications, jobs, government services, or life skills. Princess speaks English & isiZulu 🇿🇦</p>
 </div>
 
 <!-- CHAT -->
@@ -427,8 +427,8 @@
     <div class="message bot">
       <div class="avatar bot">B</div>
       <div class="bubble">
-        Sawubona! 👋 I'm <strong>Boni</strong>, the DevMzansi assistant.<br/><br/>
-        I can help you with coding questions, finding resources, SA job opportunities, or anything about the DevMzansi community. What do you need? 🇿🇦
+        Sawubona! 👋 I'm <strong>Princess</strong> 👸, your DevMzansi assistant.<br/><br/>
+        I'm here to help you with coding, NSFAS, university applications, CV writing, SASSA, jobs, or anything about DevMzansi. What do you need, sisi/mfethu? 🇿🇦
       </div>
     </div>
   </div>
@@ -439,7 +439,7 @@
     <textarea
       class="input-box"
       id="userInput"
-      placeholder="Ask Boni anything..."
+      placeholder="Ask Princess anything..."
       rows="1"
       onkeydown="handleKey(event)"
       oninput="autoResize(this)"
@@ -455,10 +455,10 @@
 </footer>
 
 <script>
-  const SYSTEM_PROMPT = `You are Boni, the friendly and helpful AI assistant for DevMzansi — a free online community for young South African developers. You were created by Nation (Sizwe Sibiya), the founder of DevMzansi.
+  const SYSTEM_PROMPT = `You are Princess 👸, the friendly and helpful AI assistant for DevMzansi — a free online community for young South African developers. You were created by Nation (Sizwe Sibiya), the founder of DevMzansi.
 
 Your personality:
-- Warm, friendly, and encouraging — like a knowledgeable older sibling
+- Warm, friendly, and encouraging — like a big sister who has all the answers
 - You understand the South African context deeply
 - You are bilingual — you understand and can respond in both English and isiZulu
 - If someone speaks to you in isiZulu, respond in isiZulu naturally
@@ -567,9 +567,25 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     const clean = text.replace(/[*_`#>\[\]()]/g, '').replace(/https?:\/\/\S+/g, '').trim();
     const utterance = new SpeechSynthesisUtterance(clean);
+
+    // Prefer female voice
+    const voices = window.speechSynthesis.getVoices();
+    const femaleVoice = voices.find(v =>
+      v.name.toLowerCase().includes('female') ||
+      v.name.toLowerCase().includes('woman') ||
+      v.name.toLowerCase().includes('girl') ||
+      v.name.toLowerCase().includes('zira') ||
+      v.name.toLowerCase().includes('samantha') ||
+      v.name.toLowerCase().includes('victoria') ||
+      v.name.toLowerCase().includes('karen') ||
+      v.name.toLowerCase().includes('moira') ||
+      v.name.toLowerCase().includes('tessa')
+    );
+    if (femaleVoice) utterance.voice = femaleVoice;
+
     utterance.lang = 'en-ZA';
-    utterance.rate = 0.95;
-    utterance.pitch = 1.05;
+    utterance.rate = 0.92;
+    utterance.pitch = 1.2;
     utterance.volume = 1;
 
     utterance.onstart = () => {
@@ -619,7 +635,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     const avatar = document.createElement('div');
     avatar.className = `avatar ${role}`;
-    avatar.textContent = role === 'bot' ? 'B' : 'U';
+    avatar.textContent = role === 'bot' ? '👸' : 'U';
 
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
@@ -658,7 +674,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     const avatar = document.createElement('div');
     avatar.className = 'avatar bot';
-    avatar.textContent = 'B';
+    avatar.textContent = '👸';
 
     const bubble = document.createElement('div');
     bubble.className = 'bubble typing';
@@ -692,7 +708,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
     showTyping();
 
     try {
-      const response = await fetch('/api/boni', {
+      const response = await fetch('/api/princess', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages })
