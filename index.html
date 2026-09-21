@@ -656,24 +656,24 @@
 </section>
 
 <!-- PRINCESS FLOATING WIDGET -->
-<div id="boni-widget" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;">
-  <div id="boni-bubble" style="display:none;background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem 1.25rem;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,0.1);font-size:0.85rem;line-height:1.5;color:#111;">
+<div id="princess-widget" style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:0.5rem;">
+  <div id="princess-bubble" style="display:none;background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem 1.25rem;max-width:240px;box-shadow:0 4px 20px rgba(0,0,0,0.1);font-size:0.85rem;line-height:1.5;color:#111;">
     <strong style="color:#c9a84c;">Sawubona! 👋</strong><br/>I'm Princess 👸 — ask me anything about coding, NSFAS, university applications, CVs, SASSA, or DevMzansi 🇿🇦
     <div style="margin-top:0.75rem;">
       <a href="assistant.html" style="background:#c9a84c;color:#000;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.8rem;padding:0.45rem 1rem;border-radius:6px;text-decoration:none;display:inline-block;">Chat with Boni →</a>
     </div>
   </div>
-  <button onclick="togglePrincess()" style="width:56px;height:56px;border-radius:50%;background:#c9a84c;border:none;cursor:pointer;font-size:1.4rem;box-shadow:0 4px 16px rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🤖</button>
+  <button onclick="toggleBoni()" style="width:56px;height:56px;border-radius:50%;background:#c9a84c;border:none;cursor:pointer;font-size:1.4rem;box-shadow:0 4px 16px rgba(201,168,76,0.4);display:flex;align-items:center;justify-content:center;transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🤖</button>
 </div>
 
 <script>
   function togglePrincess() {
-    const bubble = document.getElementById('princess-bubble');
+    const bubble = document.getElementById('boni-bubble');
     bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
   }
   // Show bubble after 3 seconds
   setTimeout(() => {
-    document.getElementById('princess-bubble').style.display = 'block';
+    document.getElementById('boni-bubble').style.display = 'block';
   }, 3000);
 </script>
 </footer>
