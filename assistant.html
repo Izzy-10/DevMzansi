@@ -447,6 +447,9 @@
     <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
   </div>
   <div class="input-hint">🎤 Tap mic to speak · 🔊 Princess will talk back · Press Enter to send</div>
+  <div style="text-align:center;margin-top:0.4rem;">
+    <span id="usage-counter" style="font-size:0.75rem;color:#999;font-family:'Space Grotesk',sans-serif;"></span>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -691,8 +694,67 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
     if (el) el.remove();
   }
 
+  // --- DAILY LIMIT SYSTEM ---
+  const DAILY_LIMIT = 10;
+
+  function getTodayKey() {
+    return 'princess_usage_' + new Date().toISOString().split('T')[0];
+  }
+
+  function getUsageCount() {
+    try { return parseInt(localStorage.getItem(getTodayKey()) || '0'); }
+    catch { return 0; }
+  }
+
+  function incrementUsage() {
+    try {
+      const count = getUsageCount() + 1;
+      localStorage.setItem(getTodayKey(), count);
+      return count;
+    } catch { return 0; }
+  }
+
+  function updateUsageDisplay() {
+    const remaining = Math.max(0, DAILY_LIMIT - getUsageCount());
+    const el = document.getElementById('usage-counter');
+    if (el) el.textContent = `${remaining} message${remaining !== 1 ? 's' : ''} left today`;
+  }
+
+  function showLimitReached() {
+    const msgs = document.getElementById('messages');
+    if (document.getElementById('limit-card')) return;
+    const card = document.createElement('div');
+    card.id = 'limit-card';
+    card.style.cssText = 'background:#fff8e7;border:2px solid #c9a84c;border-radius:12px;padding:1.5rem;text-align:center;margin-top:0.5rem;animation:fadeIn 0.3s ease;';
+    card.innerHTML = `
+      <div style="font-size:2rem;margin-bottom:0.5rem;">👸</div>
+      <strong style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#111;">Princess needs a rest! 😄</strong>
+      <p style="font-size:0.85rem;color:#666;margin:0.6rem 0 1rem;line-height:1.6;">
+        Sawubona sisi/mfethu — you've used your <strong>10 free messages</strong> for today.<br/>
+        Princess will be back tomorrow 🌅<br/><br/>
+        To keep DevMzansi free and Princess running, please consider supporting us.
+        Every cent helps young South Africans 🙏🇿🇦
+      </p>
+      <a href="https://ko-fi.com/devmzansi" target="_blank"
+         style="display:inline-block;background:#c9a84c;color:#000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.88rem;padding:0.7rem 1.5rem;border-radius:8px;text-decoration:none;">
+        ☕ Support DevMzansi on Ko-fi
+      </a>
+      <p style="font-size:0.75rem;color:#999;margin-top:0.75rem;">Resets at midnight · Come back tomorrow for 10 more free messages</p>
+    `;
+    msgs.appendChild(card);
+    msgs.scrollTop = msgs.scrollHeight;
+    document.getElementById('userInput').disabled = true;
+    document.getElementById('userInput').placeholder = 'Come back tomorrow 👸';
+    document.getElementById('sendBtn').disabled = true;
+    document.getElementById('micBtn').disabled = true;
+  }
+
   async function sendMessage() {
     if (isLoading) return;
+
+    // Check daily limit
+    if (getUsageCount() >= DAILY_LIMIT) { showLimitReached(); return; }
+
     const input = document.getElementById('userInput');
     const text = input.value.trim();
     if (!text) return;
@@ -704,6 +766,9 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     addMessage('user', text);
     messages.push({ role: 'user', content: text });
+
+    const newCount = incrementUsage();
+    updateUsageDisplay();
 
     showTyping();
 
@@ -721,18 +786,29 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
       messages.push({ role: 'assistant', content: reply });
       addMessage('bot', reply);
 
+      // Warning at 8 messages
+      if (newCount === 8) {
+        const warn = document.createElement('div');
+        warn.style.cssText = 'text-align:center;font-size:0.78rem;color:#c9a84c;padding:0.4rem;font-family:"Space Grotesk",sans-serif;';
+        warn.textContent = '⚠️ 2 messages remaining today';
+        document.getElementById('messages').appendChild(warn);
+      }
+
+      if (newCount >= DAILY_LIMIT) setTimeout(() => showLimitReached(), 1000);
+
     } catch (err) {
       removeTyping();
       console.error('Princess error:', err);
       addMessage('bot', 'Eish, I had trouble connecting. Check your internet and try again 🙏');
     } finally {
       isLoading = false;
-      document.getElementById('sendBtn').disabled = false;
+      if (getUsageCount() < DAILY_LIMIT) document.getElementById('sendBtn').disabled = false;
       input.focus();
     }
-
-    return;
   }
+  // Init on page load
+  updateUsageDisplay();
+  if (getUsageCount() >= DAILY_LIMIT) showLimitReached();
 </script>
 
 </body>
