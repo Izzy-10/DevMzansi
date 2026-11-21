@@ -168,6 +168,24 @@ a:focus-visible {
   color: var(--white);
 }
 
+.hero .join-buttons .join-item {
+  width: min(100%, 16rem);
+  align-items: stretch;
+}
+
+.hero .join-buttons .join-card {
+  width: 100%;
+}
+
+.hero .join-buttons .btn,
+.final-cta .join-buttons .btn,
+.kofi-support-button {
+  box-sizing: border-box;
+  width: min(100%, 16rem);
+  min-height: 3.5rem;
+  justify-content: center;
+}
+
 .stat-number,
 .hero h1 em,
 .section h2 em,
