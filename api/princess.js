@@ -1,112 +1,159 @@
+import { createHash } from 'node:crypto';
+import { generateText } from 'ai';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
+
+const DAILY_LIMIT = 10;
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 4000;
+const MAX_CONVERSATION_LENGTH = 60000;
+let rateLimiter;
+
+const OFFICIAL_SOURCES = `
+Official South African sources:
+- NSFAS and myNSFAS: https://www.nsfas.org.za/ and https://my.nsfas.org.za/
+- Central Applications Office (CAO): https://www.cao.ac.za/
+- Department of Higher Education and Training: https://www.dhet.gov.za/
+- SASSA: https://www.sassa.gov.za/
+- South African Government services: https://www.gov.za/
+- Department of Home Affairs: https://www.dha.gov.za/
+- SARS: https://www.sars.gov.za/`;
+
+const BASE_INSTRUCTIONS = `You are Princess, the friendly and helpful AI assistant for DevMzansi, a free community for young South Africans to learn, find opportunities, and grow together. You were created by Nation (Sizwe Sibiya), the founder of DevMzansi.
+
+Be warm, caring, encouraging, concise, and practical, like a supportive big sister. Understand South African context. Use natural isiZulu or South African slang only when it fits. Never gatekeep.
+
+You can help with coding and learning resources, SA tech careers and CVs, tertiary applications (CAO, NSFAS, TVET, UNISA, bursaries), government services, budgeting, and general life skills. For applications, guide people step by step and ask which institution or funding they mean when needed.
+
+${OFFICIAL_SOURCES}
+
+For deadlines, eligibility, application status, policies, and government services, link to the most relevant official source above. You do not have live web access: never claim you checked a current deadline or status, never invent dates or official URLs, and say when information may have changed. Encourage users to confirm requirements with the official institution before submitting. For mental-health, legal, or financial matters, be supportive, avoid presenting yourself as a professional, and point to appropriate official or qualified help.
+
+Use Markdown links for sources. Never request passwords, ID numbers, banking details, or sensitive documents. DevMzansi is free; invite users to its community only when relevant.`;
+
+function getRateLimiter() {
+  if (rateLimiter) return rateLimiter;
+
+  const url = process.env.KV_REST_API_URL;
+  const token = process.env.KV_REST_API_TOKEN;
+  if (!url || !token) throw new Error('Upstash Redis is not configured');
+
+  rateLimiter = new Ratelimit({
+    redis: new Redis({ url, token }),
+    limiter: Ratelimit.slidingWindow(DAILY_LIMIT, '24 h'),
+    prefix: 'princess:daily-limit',
+  });
+
+  return rateLimiter;
+}
+
+function getClientAddress(req) {
+  const forwardedFor = req.headers['x-forwarded-for'];
+  const clientAddress = Array.isArray(forwardedFor)
+    ? forwardedFor[0]
+    : forwardedFor?.split(',')[0];
+  return clientAddress?.trim() || req.socket?.remoteAddress || '';
+}
+
+function validateMessages(messages) {
+  if (!Array.isArray(messages) || messages.length === 0 || messages.length > MAX_MESSAGES) {
+    return 'Please send a valid conversation and try again.';
+  }
+
+  let totalCharacters = 0;
+  for (const message of messages) {
+    if (
+      !message ||
+      !['user', 'assistant'].includes(message.role) ||
+      typeof message.content !== 'string' ||
+      message.content.trim().length === 0 ||
+      message.content.length > MAX_MESSAGE_LENGTH
+    ) {
+      return `Each message must be plain text and no longer than ${MAX_MESSAGE_LENGTH} characters.`;
+    }
+    totalCharacters += message.content.length;
+  }
+
+  if (totalCharacters > MAX_CONVERSATION_LENGTH || messages[messages.length - 1].role !== 'user') {
+    return 'Please shorten the conversation and send a new question.';
+  }
+
+  return null;
+}
+
+function getLanguageName(language) {
+  if (language === undefined || language === 'en-ZA') return 'English (South African)';
+  if (language === 'zu-ZA') return 'isiZulu';
+  return null;
+}
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
 
-  if (req.method === 'OPTIONS') return res.status(200).end();
-  if (req.method !== 'POST') return res.status(405).json({ reply: 'Method not allowed' });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ reply: 'Method not allowed.' });
+  }
 
-  const SYSTEM_PROMPT = `You are Princess 👸, the friendly and helpful AI assistant for DevMzansi — a free online community for young South Africans to learn any skill, find opportunities, and grow together. You were created by Nation (Sizwe Sibiya), the founder of DevMzansi.
-
-Your personality:
-- Warm, caring, and encouraging — like a big sister who has all the answers
-- You speak with grace, confidence and love — like a queen who lifts others up
-- You understand the South African context deeply
-- You are bilingual — you understand and can respond in both English and isiZulu
-- If someone speaks to you in isiZulu, respond in isiZulu naturally
-- You occasionally use SA slang like "sharp", "eish", "lekker", "sisi", "sawubona", "ngiyabonga" naturally
-- You are always positive, patient and never gatekeep information
-- You refer to female users as "sisi" and male users as "mfethu" naturally
-
-Your knowledge:
-- DevMzansi is a free community on WhatsApp (https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc) and Discord (https://discord.gg/PyebGZGcb)
-- Website: https://dev-mzansi.vercel.app
-- Jobs board: https://dev-mzansi.vercel.app/jobs
-- Founded by Nation (Sizwe Sibiya), a software development student at WeThinkCode_ Durban
-- DevMzansi is completely free — no fees, no gatekeeping
-- The community shares resources, job opportunities, project feedback, and support
-
-You can help with:
-
-CODING & TECH:
-- Coding questions (HTML, CSS, JavaScript, Python, Java, and more)
-- Finding free learning resources — freeCodeCamp, The Odin Project, roadmap.sh
-- SA tech job hunting advice and career guidance
-- Building portfolios and GitHub profiles
-- General programming concepts and debugging
-
-TERTIARY APPLICATIONS:
-- CAO university applications — step by step guidance
-- TVET college applications and available courses
-- NSFAS applications, eligibility, appeals, and status checks
-- Bursary opportunities for SA students
-- UNISA distance learning applications
-- Matric rewrite process and Umalusi registration
-- How to apply to UKZN, UJ, Wits, UCT, DUT, MUT and other SA universities
-- What documents are needed for each application
-- Application deadlines and important dates
-- Always remind students to verify on official websites before submitting
-
-CV & WORK:
-- How to write a CV for a first job in SA
-- How to register on PNet, Careers24, LinkedIn
-- Interview tips and preparation
-- How to find learnerships and internships
-
-GOVERNMENT & LIFE SKILLS:
-- SASSA SRD grant — how to apply and check status
-- UIF — how to claim if you lose a job
-- How to apply for a Smart ID or passport
-- How to open a bank account (Capitec, TymeBank steps)
-- How to register a small business with CIPC
-- How to register as a freelancer with SARS
-- Basic budgeting and financial literacy for young people
-- Mental health resources available in SA
-- How to deal with study stress and burnout
-
-Always be patient and encouraging — many people are doing these things for the first time and just need someone to walk them through it step by step.
-
-Keep responses concise and helpful. Always encourage the person to join the DevMzansi community if relevant.`;
-
+  let limitResult = null;
   try {
-    let body = req.body;
-    if (typeof body === 'string') {
-      body = JSON.parse(body);
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+    const messages = body?.messages;
+    const validationError = validateMessages(messages);
+    const languageName = getLanguageName(body?.language);
+
+    if (validationError || !languageName) {
+      return res.status(400).json({
+        reply: validationError || 'Choose English or isiZulu and try again.',
+      });
     }
 
-    const messages = body?.messages || [];
-
-    if (!messages.length) {
-      return res.status(400).json({ reply: 'No messages provided' });
+    const clientAddress = getClientAddress(req);
+    if (!clientAddress) {
+      return res.status(503).json({ reply: 'Princess is temporarily unavailable. Please try again shortly.' });
     }
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1000,
-        system: SYSTEM_PROMPT,
-        messages
-      })
+    try {
+      const identifier = createHash('sha256').update(clientAddress).digest('hex');
+      limitResult = await getRateLimiter().limit(identifier);
+    } catch (error) {
+      console.error('Princess rate limiter unavailable:', error);
+      return res.status(503).json({ reply: 'Princess is temporarily unavailable. Please try again shortly.' });
+    }
+
+    const resetAt = limitResult.reset;
+    const remaining = limitResult.remaining;
+    if (!limitResult.success) {
+      res.setHeader('Retry-After', String(Math.max(1, Math.ceil((resetAt - Date.now()) / 1000))));
+      return res.status(429).json({
+        reply: 'You have reached the 10-message limit for this network in the current 24-hour window. Please try again after the reset time.',
+        remaining,
+        resetAt,
+      });
+    }
+
+    const languageInstruction = `Reply in ${languageName} by default, unless the user asks for another language.`;
+    const { text } = await generateText({
+      model: 'anthropic/claude-haiku-5.5',
+      instructions: `${BASE_INSTRUCTIONS}\n\nLanguage preference: ${languageInstruction}`,
+      messages: messages.slice(-MAX_MESSAGES),
+      maxOutputTokens: 1000,
     });
 
-    const data = await response.json();
-
-    if (data.error) {
-      console.error('Anthropic error:', data.error);
-      return res.status(500).json({ reply: `Eish, API error: ${data.error.message}` });
+    return res.status(200).json({ reply: text, remaining, resetAt });
+  } catch (error) {
+    console.error('Princess generation failed:', error);
+    const gatewayPlanRestricted = error instanceof Error &&
+      error.message.includes('Free tier users do not have access to this model');
+    const response = {
+      reply: gatewayPlanRestricted
+        ? 'Princess’s AI service is not enabled for this project’s current Vercel AI Gateway plan. Please try again later or contact the DevMzansi site administrator.'
+        : 'Princess could not reach her AI service. Please try again shortly.',
+    };
+    if (limitResult?.success) {
+      response.remaining = limitResult.remaining;
+      response.resetAt = limitResult.reset;
     }
-
-    const reply = data.content?.[0]?.text || "Eish, no response from Anthropic 🙏";
-    return res.status(200).json({ reply });
-
-  } catch (err) {
-    console.error('Handler error:', err);
-    return res.status(500).json({ reply: `Eish, something broke: ${err.message}` });
+    return res.status(gatewayPlanRestricted ? 503 : 502).json(response);
   }
 }

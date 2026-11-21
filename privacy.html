@@ -190,18 +190,19 @@
 <div class="content">
   <div class="badge">Legal</div>
   <h1>Privacy Policy</h1>
-  <p class="last-updated">Last updated: July 2026</p>
+    <p class="last-updated">Last updated: November 2026</p>
   <div class="divider"></div>
 
-  <p>DevMzansi ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our website, WhatsApp group, or Discord server.</p>
+    <p>DevMzansi ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy explains how we handle information when you use our website, Princess AI assistant, WhatsApp group, or Discord server.</p>
 
-  <h2>1. Information We Collect</h2>
-  <p>We collect minimal information. When you interact with DevMzansi, we may collect:</p>
-  <ul>
-    <li>Your name and contact details if you reach out to us directly via email</li>
-    <li>Information you voluntarily share in our WhatsApp group or Discord server</li>
-    <li>Basic analytics data from our website (page visits, general location) via Vercel</li>
-  </ul>
+    <h2>1. Information We Collect</h2>
+    <p>We collect minimal information. When you interact with DevMzansi, we may collect:</p>
+    <ul>
+      <li>Your name and contact details if you reach out to us directly via email</li>
+      <li>Information you voluntarily share in our WhatsApp group or Discord server</li>
+      <li>Basic analytics data from our website (page visits, general location) via Vercel</li>
+      <li>For Princess rate limiting, a SHA-256 hash of your network IP address and request count in Upstash Redis; chat text is not stored in Redis</li>
+    </ul>
 
   <h2>2. How We Use Your Information</h2>
   <p>We use the information we collect to:</p>
@@ -223,16 +224,20 @@
   </ul>
   <p>We encourage you to read their policies to understand how they handle your data.</p>
 
-  <h2>5. Cookies</h2>
+  <h2>5. Princess AI Assistant</h2>
+  <p>When you use Princess, the text you submit and the conversation context needed to answer it are sent through Vercel AI Gateway to Anthropic for response generation. DevMzansi does not save Princess chat transcripts in its own database. Please do not submit passwords, South African ID numbers, banking details, or sensitive documents. AI responses can be inaccurate and are not professional legal, financial, medical, or application-status advice; confirm deadlines and requirements with the relevant official institution.</p>
+  <p>To enforce a limit of 10 requests per network in a rolling 24-hour window, Princess stores a SHA-256 hash of the requester&apos;s IP address and rate-limit counters in Upstash Redis. The rate-limit store does not contain chat text. See the providers&apos; policies for their handling of data: <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">Vercel</a>, <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer">Anthropic</a>, and <a href="https://upstash.com/trust/privacy-policy" target="_blank" rel="noopener noreferrer">Upstash</a>.</p>
+
+  <h2>6. Cookies</h2>
   <p>Our website does not use tracking cookies. Vercel may collect anonymous usage data to serve the site — no personal data is stored by us.</p>
 
-  <h2>6. Children's Privacy</h2>
+  <h2>7. Children's Privacy</h2>
   <p>DevMzansi is intended for users aged 13 and older. We do not knowingly collect personal information from children under 13.</p>
 
-  <h2>7. Changes to This Policy</h2>
+  <h2>8. Changes to This Policy</h2>
   <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date.</p>
 
-  <h2>8. Contact Us</h2>
+  <h2>9. Contact Us</h2>
   <div class="contact-box">
     <h3>Questions about your privacy?</h3>
     <p>Reach out to us at <a href="mailto:Ssibiya026m@ai.wethinkcode.co.za">Ssibiya026m@ai.wethinkcode.co.za</a> and we'll get back to you.</p>
