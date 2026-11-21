@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Princess 👸 — DevMzansi Assistant</title>
+  <title>Princess — DevMzansi Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -354,6 +354,73 @@
     .send-btn:active { transform: scale(0.95); }
     .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    .privacy-notice {
+      margin: 0 0 1rem;
+      padding: 0.85rem 1rem;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+    .privacy-notice a,
+    .official-link { color: #765b19; text-decoration: underline; text-underline-offset: 2px; }
+    .privacy-notice strong { color: var(--text); }
+
+    .official-links {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin: 0 0 1rem;
+      font-size: 0.78rem;
+    }
+    .official-links-label {
+      color: var(--muted);
+      font-weight: 600;
+      margin-right: 0.2rem;
+    }
+    .official-link {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--gold-border);
+      border-radius: 999px;
+      background: var(--surface);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .official-link:hover { background: var(--gold-dim); }
+
+    .voice-settings {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0 0 0.6rem;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+    .voice-settings label { font-weight: 600; }
+    .voice-settings select {
+      min-height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.35rem 0.55rem;
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+    }
+    .voice-settings select:focus-visible,
+    .official-link:focus-visible,
+    .privacy-notice a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
     .input-hint {
       font-size: 0.73rem;
       color: var(--muted2);
@@ -376,6 +443,8 @@
       .hero { padding: 2rem 1.25rem 1rem; }
       .chat-wrap { padding: 0 1rem 1.5rem; }
       .messages { max-height: 360px; }
+      .voice-settings { align-items: flex-start; }
+      .voice-settings span { flex-basis: 100%; }
     }
   </style>
   <script>
@@ -401,16 +470,16 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html">Home</a>
   <a href="jobs.html">Jobs</a>
-  <a href="assistant.html">Ask Princess 👸</a>
+  <a href="assistant.html">Ask Princess</a>
   <a href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank">Join WhatsApp</a>
   <a href="https://discord.gg/PyebGZGcb" target="_blank">Join Discord</a>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">🤖 AI Powered</div>
-  <h1>Meet <em>Princess</em> 👸 — your DevMzansi PA</h1>
-  <p>Ask anything about coding, applications, jobs, government services, or life skills. Princess speaks English & isiZulu 🇿🇦</p>
+  <div class="hero-badge">AI assistant</div>
+  <h1>Meet <em>Princess</em> — your DevMzansi assistant</h1>
+  <p>Ask about coding, applications, jobs, government services, or life skills in English or isiZulu.</p>
 </div>
 
 <!-- CHAT -->
@@ -418,43 +487,66 @@
 
   <!-- QUICK PROMPTS -->
   <div class="quick-prompts">
-    <button class="quick-btn" onclick="sendQuick('Help me apply for NSFAS')">NSFAS help 💰</button>
-    <button class="quick-btn" onclick="sendQuick('Help me apply to a university or college in South Africa')">University application 🎓</button>
-    <button class="quick-btn" onclick="sendQuick('How do I write a CV for my first job?')">Write my CV 📄</button>
-    <button class="quick-btn" onclick="sendQuick('How do I apply for a SASSA SRD grant?')">SASSA grant 🏛️</button>
-    <button class="quick-btn" onclick="sendQuick('Where can I find junior dev jobs in South Africa?')">Find SA jobs 💼</button>
-    <button class="quick-btn" onclick="sendQuick('What free resources can help me learn to code?')">Free resources 📚</button>
-    <button class="quick-btn" onclick="sendQuick('I am a beginner, where do I start learning to code?')">I am a beginner 🌱</button>
-    <button class="quick-btn" onclick="sendQuick('How do I open a Capitec or TymeBank account?')">Open bank account 🏦</button>
+    <button class="quick-btn" onclick="sendQuick('Help me apply for NSFAS')">NSFAS help</button>
+    <button class="quick-btn" onclick="sendQuick('Help me apply to a university or college in South Africa')">University application</button>
+    <button class="quick-btn" onclick="sendQuick('How do I write a CV for my first job?')">Write my CV</button>
+    <button class="quick-btn" onclick="sendQuick('How do I apply for a SASSA SRD grant?')">SASSA grant</button>
+    <button class="quick-btn" onclick="sendQuick('Where can I find junior dev jobs in South Africa?')">Find SA jobs</button>
+    <button class="quick-btn" onclick="sendQuick('What free resources can help me learn to code?')">Free resources</button>
+    <button class="quick-btn" onclick="sendQuick('I am a beginner, where do I start learning to code?')">I am a beginner</button>
+    <button class="quick-btn" onclick="sendQuick('How do I open a Capitec or TymeBank account?')">Open bank account</button>
   </div>
 
+  <nav class="official-links" aria-label="Official South African resources">
+    <span class="official-links-label">Official sources:</span>
+    <a class="official-link" href="https://www.nsfas.org.za/" target="_blank" rel="noopener noreferrer">NSFAS</a>
+    <a class="official-link" href="https://www.cao.ac.za/" target="_blank" rel="noopener noreferrer">CAO</a>
+    <a class="official-link" href="https://www.dhet.gov.za/" target="_blank" rel="noopener noreferrer">DHET</a>
+    <a class="official-link" href="https://www.sassa.gov.za/" target="_blank" rel="noopener noreferrer">SASSA</a>
+    <a class="official-link" href="https://www.gov.za/" target="_blank" rel="noopener noreferrer">Gov.za</a>
+  </nav>
+
+  <aside class="privacy-notice" aria-label="AI and privacy information">
+    <strong>AI-generated guidance.</strong> Messages are sent to Vercel AI Gateway and Anthropic to generate replies. Don&apos;t share passwords, ID numbers, bank details, or sensitive documents. Check important requirements on official sites. <a href="privacy.html">Privacy details</a>.
+  </aside>
+
   <!-- MESSAGES -->
-  <div class="messages" id="messages">
+  <div class="messages" id="messages" role="log" aria-live="polite" aria-relevant="additions" aria-label="Conversation with Princess">
     <div class="message bot">
-      <div class="avatar bot">B</div>
+      <div class="avatar bot">P</div>
       <div class="bubble">
-        Sawubona! 👋 I'm <strong>Princess</strong> 👸, your DevMzansi assistant.<br/><br/>
-        I'm here to help you with coding, NSFAS, university applications, CV writing, SASSA, jobs, or anything about DevMzansi. What do you need, sisi/mfethu? 🇿🇦
+        Sawubona! I&apos;m <strong>Princess</strong>, your DevMzansi assistant.<br/><br/>
+        I'm here to help you with coding, NSFAS, university applications, CV writing, SASSA, jobs, or anything about DevMzansi. What do you need, sisi/mfethu?
       </div>
     </div>
   </div>
 
   <!-- INPUT -->
+  <div class="voice-settings">
+    <label for="voiceLanguage">Conversation and voice language</label>
+    <select id="voiceLanguage" aria-label="Conversation and voice language">
+      <option value="en-ZA">English (South Africa)</option>
+      <option value="zu-ZA">isiZulu</option>
+    </select>
+    <span>Speech availability depends on your browser and device.</span>
+  </div>
   <div class="input-row">
-    <button id="micBtn" onclick="toggleMic()" title="Voice input" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.2rem;flex-shrink:0;transition:all 0.2s;">🎤</button>
+    <button id="micBtn" type="button" onclick="toggleMic()" title="Voice input" aria-label="Start voice input" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.72rem;font-weight:700;flex-shrink:0;transition:all 0.2s;">Mic</button>
     <textarea
       class="input-box"
       id="userInput"
       placeholder="Ask Princess anything..."
+      maxlength="4000"
+      aria-label="Message Princess"
       rows="1"
       onkeydown="handleKey(event)"
       oninput="autoResize(this)"
     ></textarea>
     <button class="send-btn" id="sendBtn" onclick="sendMessage()">➤</button>
   </div>
-  <div class="input-hint">🎤 Tap mic to speak · 🔊 Princess will talk back · Press Enter to send</div>
+  <div class="input-hint">Use voice input · Listen to replies · Press Enter to send</div>
   <div style="text-align:center;margin-top:0.4rem;">
-    <span id="usage-counter" style="font-size:0.75rem;color:#999;font-family:'Space Grotesk',sans-serif;"></span>
+    <span id="usage-counter" role="status" aria-live="polite" style="font-size:0.75rem;color:#999;font-family:'Space Grotesk',sans-serif;">Up to 10 replies per network in a rolling 24-hour window</span>
   </div>
 </div>
 
@@ -465,12 +557,12 @@
       <p class="site-footer__statement">Made in South Africa, rooted in community. Learn, find opportunities, and build with people who understand the Mzansi context.</p>
       <p class="site-footer__availability"><span aria-hidden="true"></span> Open to learners, builders and collaborators</p>
       <div class="site-footer__actions">
-        <a class="site-footer__button site-footer__button--primary" href="assistant.html">Ask Princess 👸</a>
+        <a class="site-footer__button site-footer__button--primary" href="assistant.html">Ask Princess</a>
         <a class="site-footer__button" href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank" rel="noopener noreferrer">Join the community <span aria-hidden="true">→</span></a>
       </div>
     </section>
     <div class="site-footer__links">
-      <div><h2>Pages</h2><nav aria-label="Footer pages"><a href="index.html">Home</a><a href="jobs.html">Jobs</a><a href="skills.html">Skills</a><a href="opportunities.html">Opportunities</a><a href="blog.html">Blog</a><a href="assistant.html">Ask Princess 👸</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div>
+      <div><h2>Pages</h2><nav aria-label="Footer pages"><a href="index.html">Home</a><a href="jobs.html">Jobs</a><a href="skills.html">Skills</a><a href="opportunities.html">Opportunities</a><a href="blog.html">Blog</a><a href="assistant.html">Ask Princess</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div>
       <div><h2>Connect</h2><nav aria-label="Connect with DevMzansi"><a href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank" rel="noopener noreferrer">WhatsApp community</a><a href="https://discord.gg/PyebGZGcb" target="_blank" rel="noopener noreferrer">Discord server</a><a href="mailto:Ssibiya026m@ai.wethinkcode.co.za">Contact us</a><a href="https://ko-fi.com/devmzansi" target="_blank" rel="noopener noreferrer">Support DevMzansi</a></nav></div>
     </div>
     <div class="site-footer__bottom"><span>© 2026 DevMzansi. All rights reserved.</span><span>Built by Nation · Durban, South Africa</span></div>
@@ -478,49 +570,6 @@
 </footer>
 
 <script>
-  const SYSTEM_PROMPT = `You are Princess 👸, the friendly and helpful AI assistant for DevMzansi — a free online community for young South African developers. You were created by Nation (Sizwe Sibiya), the founder of DevMzansi.
-
-Your personality:
-- Warm, friendly, and encouraging — like a big sister who has all the answers
-- You understand the South African context deeply
-- You are bilingual — you understand and can respond in both English and isiZulu
-- If someone speaks to you in isiZulu, respond in isiZulu naturally
-- You occasionally use SA slang like "sharp", "eish", "lekker", "mfethu", "sawubona", "ngiyabonga" naturally
-- You are always positive and never gatekeep information
-
-Your knowledge:
-- DevMzansi is a free community on WhatsApp (https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc) and Discord (https://discord.gg/PyebGZGcb)
-- Website: https://dev-mzansi.vercel.app
-- Jobs board: https://dev-mzansi.vercel.app/jobs
-- Founded by Nation (Sizwe Sibiya), a software development student at WeThinkCode_ Durban
-- DevMzansi is completely free — no fees, no gatekeeping
-- The community shares resources, job opportunities, project feedback, and support
-
-You can help with:
-- Questions about DevMzansi and how to join
-- Coding questions (HTML, CSS, JavaScript, Python, Java, and more)
-- Finding free learning resources
-- SA tech job hunting advice
-- Career advice for young SA developers
-- General programming concepts
-- Tertiary applications — guiding students through CAO, TVET college, NSFAS, and bursary applications step by step
-- Telling students exactly what documents they need for each application
-- Application deadlines and important dates
-- NSFAS eligibility, appeals, and status checks
-- Bursary opportunities for SA students
-- How to apply to universities like UKZN, UJ, Wits, UCT, DUT, MUT and others
-- TVET college applications and what courses are available
-
-For tertiary applications, always:
-- Guide them step by step
-- Ask which institution or funding they are applying for
-- List the exact documents needed
-- Mention important deadlines
-- Remind them to double check on the official website before submitting
-- Be patient and encouraging — many students are doing this for the first time
-
-Keep responses concise and helpful. Use markdown for code. Always encourage the person to join the DevMzansi community if relevant.`;
-
   let messages = [];
   let isLoading = false;
   let isListening = false;
@@ -529,7 +578,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
   let isSpeaking = false;
   function toggleMic() {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      alert('Voice input is not supported on this browser. Try Chrome.');
+      alert('Voice input is not supported in this browser. Try a browser with speech recognition support.');
       return;
     }
 
@@ -540,7 +589,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     recognition = new SpeechRecognition();
-    recognition.lang = 'en-ZA';
+    recognition.lang = getSelectedLanguage();
     recognition.continuous = false;
     recognition.interimResults = false;
 
@@ -548,7 +597,8 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
       isListening = true;
       document.getElementById('micBtn').style.background = '#ffeded';
       document.getElementById('micBtn').style.borderColor = '#ff4444';
-      document.getElementById('micBtn').textContent = '🔴';
+      document.getElementById('micBtn').textContent = 'Stop';
+      document.getElementById('micBtn').setAttribute('aria-label', 'Stop voice input');
     };
 
     recognition.onresult = (e) => {
@@ -561,7 +611,8 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
       isListening = false;
       document.getElementById('micBtn').style.background = 'var(--surface)';
       document.getElementById('micBtn').style.borderColor = 'var(--border)';
-      document.getElementById('micBtn').textContent = '🎤';
+      document.getElementById('micBtn').textContent = 'Mic';
+      document.getElementById('micBtn').setAttribute('aria-label', 'Start voice input');
       // Auto send after voice input
       if (document.getElementById('userInput').value.trim()) {
         sendMessage();
@@ -570,10 +621,15 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     recognition.onerror = () => {
       isListening = false;
-      document.getElementById('micBtn').textContent = '🎤';
+      document.getElementById('micBtn').textContent = 'Mic';
+      document.getElementById('micBtn').setAttribute('aria-label', 'Start voice input');
     };
 
     recognition.start();
+  }
+
+  function getSelectedLanguage() {
+    return document.getElementById('voiceLanguage').value;
   }
 
   // --- TEXT TO SPEECH ---
@@ -583,42 +639,36 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
     if (isSpeaking) {
       window.speechSynthesis.cancel();
       isSpeaking = false;
-      document.querySelectorAll('.speak-btn').forEach(b => b.textContent = '🔊');
-      if (btnEl) btnEl.textContent = '🔊';
+      document.querySelectorAll('.speak-btn').forEach(button => button.textContent = 'Listen');
+      if (btnEl) btnEl.textContent = 'Listen';
       return;
     }
 
     const clean = text.replace(/[*_`#>\[\]()]/g, '').replace(/https?:\/\/\S+/g, '').trim();
     const utterance = new SpeechSynthesisUtterance(clean);
-
-    // Prefer female voice
-    const voices = window.speechSynthesis.getVoices();
-    const femaleVoice = voices.find(v =>
-      v.name.toLowerCase().includes('female') ||
-      v.name.toLowerCase().includes('woman') ||
-      v.name.toLowerCase().includes('girl') ||
-      v.name.toLowerCase().includes('zira') ||
-      v.name.toLowerCase().includes('samantha') ||
-      v.name.toLowerCase().includes('victoria') ||
-      v.name.toLowerCase().includes('karen') ||
-      v.name.toLowerCase().includes('moira') ||
-      v.name.toLowerCase().includes('tessa')
+    const language = getSelectedLanguage().toLowerCase();
+    const languagePrefix = language.split('-')[0];
+    const languageVoices = window.speechSynthesis.getVoices().filter(voice =>
+      voice.lang.toLowerCase().replace('_', '-').startsWith(languagePrefix)
     );
-    if (femaleVoice) utterance.voice = femaleVoice;
+    const preferredVoice = languageVoices.find(voice =>
+      /female|woman|girl|zira|samantha|victoria|karen|moira|tessa/i.test(voice.name)
+    ) || languageVoices[0];
 
-    utterance.lang = 'en-ZA';
+    if (preferredVoice) utterance.voice = preferredVoice;
+    utterance.lang = language;
     utterance.rate = 0.92;
     utterance.pitch = 1.2;
     utterance.volume = 1;
 
     utterance.onstart = () => {
       isSpeaking = true;
-      if (btnEl) btnEl.textContent = '⏸';
+      if (btnEl) btnEl.textContent = 'Pause';
     };
 
     utterance.onend = () => {
       isSpeaking = false;
-      if (btnEl) btnEl.textContent = '🔊';
+      if (btnEl) btnEl.textContent = 'Listen';
     };
 
     window.speechSynthesis.speak(utterance);
@@ -635,6 +685,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
   }
 
   function handleKey(e) {
+    if (e.isComposing || e.keyCode === 229) return;
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
@@ -658,7 +709,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     const avatar = document.createElement('div');
     avatar.className = `avatar ${role}`;
-    avatar.textContent = role === 'bot' ? '👸' : 'U';
+    avatar.textContent = role === 'bot' ? 'P' : 'U';
 
     const bubble = document.createElement('div');
     bubble.className = 'bubble';
@@ -667,8 +718,9 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
     if (role === 'bot') {
       const speakBtn = document.createElement('button');
       speakBtn.className = 'speak-btn';
-      speakBtn.textContent = '🔊';
-      speakBtn.title = 'Play / Pause';
+      speakBtn.textContent = 'Listen';
+      speakBtn.title = 'Read this response aloud';
+      speakBtn.setAttribute('aria-label', 'Read this response aloud');
       speakBtn.style.cssText = 'background:none;border:1px solid var(--border);border-radius:100px;padding:0.2rem 0.6rem;font-size:0.75rem;cursor:pointer;margin-top:0.5rem;display:block;color:var(--muted);transition:all 0.2s;';
       speakBtn.onclick = () => speakText(content, speakBtn);
       bubble.appendChild(speakBtn);
@@ -682,7 +734,16 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
   }
 
   function formatMessage(text) {
-    return text
+    const escaped = String(text).replace(/[&<>"']/g, character => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[character]);
+
+    return escaped
+      .replace(/\[([^\]]+)\]\((https:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/`(.*?)`/g, '<code style="background:#f0f0f0;padding:2px 5px;border-radius:4px;font-size:0.85em;">$1</code>')
@@ -697,7 +758,7 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     const avatar = document.createElement('div');
     avatar.className = 'avatar bot';
-    avatar.textContent = '👸';
+    avatar.textContent = 'P';
 
     const bubble = document.createElement('div');
     bubble.className = 'bubble typing';
@@ -714,66 +775,53 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
     if (el) el.remove();
   }
 
-  // --- DAILY LIMIT SYSTEM ---
-  const DAILY_LIMIT = 10;
-
-  function getTodayKey() {
-    return 'princess_usage_' + new Date().toISOString().split('T')[0];
-  }
-
-  function getUsageCount() {
-    try { return parseInt(localStorage.getItem(getTodayKey()) || '0'); }
-    catch { return 0; }
-  }
-
-  function incrementUsage() {
-    try {
-      const count = getUsageCount() + 1;
-      localStorage.setItem(getTodayKey(), count);
-      return count;
-    } catch { return 0; }
-  }
-
-  function updateUsageDisplay() {
-    const remaining = Math.max(0, DAILY_LIMIT - getUsageCount());
+  function updateUsageDisplay(remaining) {
+    if (typeof remaining !== 'number') return;
     const el = document.getElementById('usage-counter');
-    if (el) el.textContent = `${remaining} message${remaining !== 1 ? 's' : ''} left today`;
+    if (el) {
+      el.textContent = `${remaining} response${remaining === 1 ? '' : 's'} left for this network in the current 24-hour window`;
+    }
   }
 
-  function showLimitReached() {
+  function showLimitReached(resetAt) {
     const msgs = document.getElementById('messages');
     if (document.getElementById('limit-card')) return;
+
     const card = document.createElement('div');
     card.id = 'limit-card';
-    card.style.cssText = 'background:#fff8e7;border:2px solid #c9a84c;border-radius:12px;padding:1.5rem;text-align:center;margin-top:0.5rem;animation:fadeIn 0.3s ease;';
-    card.innerHTML = `
-      <div style="font-size:2rem;margin-bottom:0.5rem;">👸</div>
-      <strong style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#111;">Princess needs a rest! 😄</strong>
-      <p style="font-size:0.85rem;color:#666;margin:0.6rem 0 1rem;line-height:1.6;">
-        Sawubona sisi/mfethu — you've used your <strong>10 free messages</strong> for today.<br/>
-        Princess will be back tomorrow 🌅<br/><br/>
-        To keep DevMzansi free and Princess running, please consider supporting us.
-        Every cent helps young South Africans 🙏🇿🇦
-      </p>
-      <a href="https://ko-fi.com/devmzansi" target="_blank"
-         style="display:inline-block;background:#c9a84c;color:#000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.88rem;padding:0.7rem 1.5rem;border-radius:8px;text-decoration:none;">
-        ☕ Support DevMzansi on Ko-fi
-      </a>
-      <p style="font-size:0.75rem;color:#999;margin-top:0.75rem;">Resets at midnight · Come back tomorrow for 10 more free messages</p>
-    `;
+    card.setAttribute('role', 'status');
+    card.style.cssText = 'background:#fff8e7;border:2px solid #c9a84c;border-radius:12px;padding:1.25rem;text-align:center;margin-top:0.5rem;animation:fadeIn 0.3s ease;';
+
+    const heading = document.createElement('strong');
+    heading.textContent = 'Daily network limit reached';
+    heading.style.cssText = 'font-family:"Space Grotesk",sans-serif;font-size:1rem;color:#111;';
+
+    const description = document.createElement('p');
+    const resetDate = Number(resetAt);
+    const resetLabel = Number.isFinite(resetDate) && resetDate > 0
+      ? new Date(resetDate).toLocaleString('en-ZA', { dateStyle: 'medium', timeStyle: 'short' })
+      : 'after the current 24-hour window resets';
+    description.textContent = `This network has used its 10 free requests. Please try again ${resetLabel}.`;
+    description.style.cssText = 'font-size:0.85rem;color:#555;margin:0.6rem 0 1rem;line-height:1.6;';
+
+    const supportLink = document.createElement('a');
+    supportLink.href = 'https://ko-fi.com/devmzansi';
+    supportLink.target = '_blank';
+    supportLink.rel = 'noopener noreferrer';
+    supportLink.textContent = 'Support DevMzansi';
+    supportLink.style.cssText = 'display:inline-block;background:#c9a84c;color:#000;font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:0.88rem;padding:0.65rem 1.2rem;border-radius:8px;text-decoration:none;';
+
+    card.append(heading, description, supportLink);
     msgs.appendChild(card);
     msgs.scrollTop = msgs.scrollHeight;
     document.getElementById('userInput').disabled = true;
-    document.getElementById('userInput').placeholder = 'Come back tomorrow 👸';
+    document.getElementById('userInput').placeholder = 'Try again after the reset';
     document.getElementById('sendBtn').disabled = true;
     document.getElementById('micBtn').disabled = true;
   }
 
   async function sendMessage() {
-    if (isLoading) return;
-
-    // Check daily limit
-    if (getUsageCount() >= DAILY_LIMIT) { showLimitReached(); return; }
+    if (isLoading || document.getElementById('limit-card')) return;
 
     const input = document.getElementById('userInput');
     const text = input.value.trim();
@@ -786,49 +834,41 @@ Keep responses concise and helpful. Use markdown for code. Always encourage the 
 
     addMessage('user', text);
     messages.push({ role: 'user', content: text });
-
-    const newCount = incrementUsage();
-    updateUsageDisplay();
-
     showTyping();
 
     try {
       const response = await fetch('/api/princess', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages })
+        body: JSON.stringify({ messages, language: getSelectedLanguage() })
       });
 
       const data = await response.json();
       removeTyping();
 
-      const reply = data.reply || "Eish, something went wrong. Try again mfethu 🙏";
+      const reply = data.reply || 'Princess could not respond right now. Please try again shortly.';
       messages.push({ role: 'assistant', content: reply });
       addMessage('bot', reply);
 
-      // Warning at 8 messages
-      if (newCount === 8) {
-        const warn = document.createElement('div');
-        warn.style.cssText = 'text-align:center;font-size:0.78rem;color:#c9a84c;padding:0.4rem;font-family:"Space Grotesk",sans-serif;';
-        warn.textContent = '⚠️ 2 messages remaining today';
-        document.getElementById('messages').appendChild(warn);
+      updateUsageDisplay(data.remaining);
+      if (response.status === 429 || data.remaining === 0) {
+        setTimeout(() => showLimitReached(data.resetAt), 400);
+      } else if (data.remaining === 2) {
+        const warning = document.createElement('div');
+        warning.style.cssText = 'text-align:center;font-size:0.78rem;color:#8a691b;padding:0.4rem;font-family:"Space Grotesk",sans-serif;';
+        warning.textContent = '2 responses remain for this network in the current 24-hour window';
+        document.getElementById('messages').appendChild(warning);
       }
-
-      if (newCount >= DAILY_LIMIT) setTimeout(() => showLimitReached(), 1000);
-
-    } catch (err) {
+    } catch (error) {
       removeTyping();
-      console.error('Princess error:', err);
-      addMessage('bot', 'Eish, I had trouble connecting. Check your internet and try again 🙏');
+      console.error('Princess request failed:', error);
+      addMessage('bot', 'Princess had trouble connecting. Please check your connection and try again.');
     } finally {
       isLoading = false;
-      if (getUsageCount() < DAILY_LIMIT) document.getElementById('sendBtn').disabled = false;
+      if (!document.getElementById('limit-card')) document.getElementById('sendBtn').disabled = false;
       input.focus();
     }
   }
-  // Init on page load
-  updateUsageDisplay();
-  if (getUsageCount() >= DAILY_LIMIT) showLimitReached();
 </script>
 
 </body>
