@@ -6,6 +6,8 @@
   "dependencies": {
     "@upstash/ratelimit": "^2.2.1",
     "@upstash/redis": "^1.41.0",
-    "ai": "^7.0.179"
+    "ai": "^7.0.179",
+    "drizzle-orm": "^0.45.4",
+    "pg": "^8.23.1"
   }
 }

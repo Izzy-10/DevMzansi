@@ -332,6 +332,8 @@
       color: var(--muted);
       margin-top: 1rem;
     }
+    .form-note a { color: #725b1d; }
+    .honeypot { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
     /* FOOTER */
     footer {
@@ -373,6 +375,7 @@
       <div class="menu-dropdown" id="menu-dropdown">
         <a href="index.html">Home</a>
         <a href="jobs.html">Jobs</a>
+        <a href="application-guide.html">Application guide</a>
         <a href="skills.html">Skills</a>
         <a href="opportunities.html">Opportunities</a>
         <a href="hire.html">Partner with DevMzansi</a>
@@ -390,7 +393,7 @@
 <section class="hero">
   <div class="hero-badge">For Employers & Partners</div>
   <h1>Submit an <em>Opportunity</em></h1>
-  <p>Ready to post a role? Fill in the details below and we'll review it before it goes live on the DevMzansi jobs board.</p>
+  <p>Share the role details below. A moderator will review the listing before it appears on the DevMzansi jobs board.</p>
 </section>
 
 <!-- FORM -->
@@ -403,32 +406,47 @@
 
       <div class="field">
         <label for="job_title">Job / Opportunity Title</label>
-        <input type="text" id="job_title" name="job_title" placeholder="e.g. Junior Frontend Developer Intern" required />
+        <input type="text" id="job_title" name="job_title" placeholder="e.g. Junior Frontend Developer Intern" maxlength="120" required />
+      </div>
+      <div class="field">
+        <label for="description">Role description</label>
+        <textarea id="description" name="description" maxlength="3000" placeholder="Describe the work, essential requirements and what applicants can expect." required></textarea>
+        <span class="hint">Keep it clear and specific. Do not include sensitive information.</span>
       </div>
 
       <div class="field">
         <label for="job_type">Type</label>
         <select id="job_type" name="job_type" required>
           <option value="">Select one</option>
-          <option value="Full-time">Full-time</option>
-          <option value="Internship">Internship</option>
-          <option value="Learnership">Learnership</option>
-          <option value="Remote">Remote</option>
+          <option value="fulltime">Full-time</option>
+          <option value="internship">Internship</option>
+          <option value="learnership">Learnership</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="experience_level">Experience level</label>
+        <select id="experience_level" name="experience_level" required>
+          <option value="">Select one</option>
+          <option value="entry">Entry-level / graduate</option>
+          <option value="junior">Junior · 0–2 years</option>
+          <option value="intermediate">Intermediate · 3–5 years</option>
+          <option value="all">Open to all experience levels</option>
         </select>
       </div>
 
       <div class="field-row">
         <div class="field">
           <label for="duration">Duration</label>
-          <input type="text" id="duration" name="duration" placeholder="e.g. 6 months" />
+          <input type="text" id="duration" name="duration" placeholder="e.g. 6 months" maxlength="100" />
         </div>
         <div class="field">
           <label for="arrangement">Work Arrangement</label>
-          <select id="arrangement" name="arrangement">
+          <select id="arrangement" name="arrangement" required>
             <option value="">Select one</option>
-            <option value="Remote">Remote</option>
-            <option value="On-site">On-site</option>
-            <option value="Hybrid">Hybrid</option>
+            <option value="remote">Remote</option>
+            <option value="onsite">On-site</option>
+            <option value="hybrid">Hybrid</option>
           </select>
         </div>
       </div>
@@ -437,15 +455,15 @@
         <label>Pay Type</label>
         <div class="options">
           <label class="option-pill">
-            <input type="radio" name="pay_type" value="Paid" checked />
+            <input type="radio" name="pay_type" value="paid" checked />
             <span>Paid</span>
           </label>
           <label class="option-pill">
-            <input type="radio" name="pay_type" value="Stipend" />
+            <input type="radio" name="pay_type" value="stipend" />
             <span>Stipend</span>
           </label>
           <label class="option-pill">
-            <input type="radio" name="pay_type" value="Unpaid" />
+            <input type="radio" name="pay_type" value="unpaid" />
             <span>Unpaid</span>
           </label>
         </div>
@@ -453,7 +471,7 @@
 
       <div class="field">
         <label for="salary">Salary / Stipend Amount</label>
-        <input type="text" id="salary" name="salary" placeholder="e.g. R15,000–R20,000/month, or state clearly if unpaid" />
+        <input type="text" id="salary" name="salary" placeholder="e.g. R15,000–R20,000/month" maxlength="160" />
       </div>
 
       <hr class="section-divider"/>
@@ -462,23 +480,23 @@
       <div class="field-row">
         <div class="field">
           <label for="company">Company / Organisation</label>
-          <input type="text" id="company" name="company" required />
+          <input type="text" id="company" name="company" maxlength="120" required />
         </div>
         <div class="field">
           <label for="location">Location</label>
-          <input type="text" id="location" name="location" placeholder="e.g. Cape Town" />
+          <input type="text" id="location" name="location" placeholder="e.g. Cape Town" maxlength="120" required />
         </div>
       </div>
 
       <div class="field">
         <label for="apply_link">Application Link</label>
-        <input type="url" id="apply_link" name="apply_link" placeholder="https:// or mailto: address applicants use" required />
-        <span class="hint">This must go directly to your own application page or inbox — DevMzansi doesn't collect applications on your behalf.</span>
+          <input type="url" id="apply_link" name="apply_link" placeholder="https:// or mailto: address applicants use" maxlength="2048" required />
+        <span class="hint">Use your secure HTTPS application page or a mailto address. Applicants apply directly to the employer.</span>
       </div>
 
       <div class="field">
         <label for="closing_date">Closing Date</label>
-        <input type="date" id="closing_date" name="closing_date" />
+          <input type="date" id="closing_date" name="closing_date" required />
       </div>
 
       <hr class="section-divider"/>
@@ -487,22 +505,25 @@
       <div class="field-row">
         <div class="field">
           <label for="contact_name">Your Name</label>
-          <input type="text" id="contact_name" name="contact_name" required />
+          <input type="text" id="contact_name" name="contact_name" maxlength="100" required />
         </div>
         <div class="field">
           <label for="contact_email">Your Email</label>
-          <input type="email" id="contact_email" name="contact_email" required />
+          <input type="email" id="contact_email" name="contact_email" maxlength="254" required />
         </div>
       </div>
 
       <div class="field">
         <label for="notes">Anything Else We Should Know?</label>
-        <textarea id="notes" name="notes" placeholder="Optional — extra context, requirements, or questions"></textarea>
+        <textarea id="notes" name="notes" maxlength="1000" placeholder="Optional — extra context, requirements, or questions"></textarea>
       </div>
 
       <button type="submit" class="submit-btn">Submit Opportunity →</button>
     </form>
-    <p class="form-note">This opens your email app with everything pre-filled — nothing is sent automatically. Opportunities are reviewed before publication, and applicants apply directly to the employer or authorised contact.</p>
+    <p class="form-note" id="submission-status" role="status" aria-live="polite">Submissions are reviewed before publication. Applicants apply directly to the employer or authorised contact.</p>
+    <div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+    <p class="form-note">By submitting, you confirm you’re authorised to share this listing. Your contact details are used for review, not shown publicly. See our <a href="privacy.html">Privacy Policy</a>.</p>
+    <p class="form-note">Need help getting ready to apply? <a href="application-guide.html">Read the application guide</a>.</p>
   </div>
 </div>
 
@@ -525,29 +546,55 @@
     }
   });
 
-  document.getElementById('opportunity-form').addEventListener('submit', function (e) {
-    e.preventDefault();
+  const opportunityForm = document.getElementById('opportunity-form');
+  opportunityForm.addEventListener('keydown', event => {
+    if (event.key === 'Enter' && (event.isComposing || event.keyCode === 229)) event.preventDefault();
+  });
+
+  opportunityForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (event.nativeEvent?.isComposing || event.keyCode === 229) return;
 
     const get = (id) => document.getElementById(id).value.trim();
-    const payType = document.querySelector('input[name="pay_type"]:checked').value;
+    const submitButton = event.currentTarget.querySelector('[type="submit"]');
+    const status = document.getElementById('submission-status');
+    submitButton.disabled = true;
+    status.textContent = 'Submitting for review…';
+    status.style.color = '';
 
-    const subject = `New Opportunity Submission: ${get('job_title')} at ${get('company')}`;
-    const body =
-      `JOB TITLE: ${get('job_title')}\n` +
-      `TYPE: ${get('job_type')}\n` +
-      `DURATION: ${get('duration')}\n` +
-      `WORK ARRANGEMENT: ${get('arrangement')}\n` +
-      `PAY TYPE: ${payType}\n` +
-      `SALARY / STIPEND: ${get('salary')}\n\n` +
-      `COMPANY: ${get('company')}\n` +
-      `LOCATION: ${get('location')}\n` +
-      `APPLICATION LINK: ${get('apply_link')}\n` +
-      `CLOSING DATE: ${get('closing_date')}\n\n` +
-      `SUBMITTED BY: ${get('contact_name')} (${get('contact_email')})\n\n` +
-      `NOTES:\n${get('notes')}`;
-
-    const mailtoLink = `mailto:Ssibiya026m@ai.wethinkcode.co.za?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
+    try {
+      const response = await fetch('/api/jobs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: get('job_title'),
+          company: get('company'),
+          category: get('job_type'),
+          location: get('location'),
+          experienceLevel: get('experience_level'),
+          workMode: get('arrangement'),
+          payType: document.querySelector('input[name="pay_type"]:checked').value,
+          payDetails: get('salary'),
+          duration: get('duration'),
+          description: `${get('description')}${get('notes') ? `\n\nAdditional details:\n${get('notes')}` : ''}`,
+          applicationUrl: get('apply_link'),
+          submitterName: get('contact_name'),
+          submitterEmail: get('contact_email'),
+          closingDate: get('closing_date'),
+          website: get('website'),
+        }),
+      });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(payload.error || 'We could not submit this opportunity. Please try again.');
+      event.currentTarget.reset();
+      status.textContent = 'Thank you — your opportunity has been received and is awaiting review. We will publish it only after approval.';
+      status.style.color = '#183b30';
+    } catch (error) {
+      status.textContent = error.message || 'We could not submit this opportunity. Please try again.';
+      status.style.color = '#a43127';
+    } finally {
+      submitButton.disabled = false;
+    }
   });
 </script>
 

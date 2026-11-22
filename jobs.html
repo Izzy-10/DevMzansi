@@ -244,6 +244,32 @@
       color: var(--gold);
     }
 
+    .filter-tools {
+      display: grid;
+      grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(150px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1.2rem;
+    }
+    .filter-tools label {
+      display: block;
+      margin-bottom: 0.35rem;
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+    }
+    .filter-tools input, .filter-tools select {
+      width: 100%;
+      min-height: 2.7rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      padding: 0.55rem 0.75rem;
+      font: inherit;
+    }
+    .filter-tools input:focus, .filter-tools select:focus { outline: 3px solid rgba(201,168,76,.3); border-color: var(--gold); }
+
     /* JOBS LIST */
     .jobs-wrap {
       max-width: 900px;
@@ -271,7 +297,6 @@
       transition: border-color 0.2s, background 0.2s;
       text-decoration: none;
       color: inherit;
-      cursor: pointer;
     }
     .job-card:hover {
       border-color: var(--gold-border);
@@ -339,6 +364,20 @@
       color: var(--muted);
       margin-bottom: 0.6rem;
     }
+
+    .job-description {
+      margin: 0.75rem 0 0;
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .job-card[hidden] { display: none; }
+    .job-top .badge-fulltime { background: var(--green-dim); border: 1px solid rgba(62,207,142,0.25); color: var(--green); }
+    .job-top .badge-internship { background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.25); color: #818cf8; }
+    .job-top .badge-learnership { background: rgba(251,146,60,0.1); border: 1px solid rgba(251,146,60,0.25); color: #fb923c; }
 
     .job-meta {
       display: flex;
@@ -459,6 +498,8 @@
       transition: background 0.2s;
     }
     .contact-btn:hover { background: var(--gold-soft); }
+    .post-cta p a { color: var(--green); font-weight: 600; text-underline-offset: 0.2em; }
+    .post-cta p a:hover { color: var(--gold); }
 
     /* FOOTER */
     footer {
@@ -478,6 +519,7 @@
       .filters-wrap, .jobs-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
       .job-card { flex-direction: column; }
       .job-right { flex-direction: row; align-items: center; width: 100%; justify-content: space-between; }
+      .filter-tools { grid-template-columns: 1fr; }
       .pricing { gap: 0.5rem; }
     }
   </style>
@@ -503,6 +545,7 @@
       <div class="menu-dropdown" id="jobs-menu">
         <a href="index.html">Home</a>
         <a href="jobs.html" aria-current="page">Jobs</a>
+        <a href="application-guide.html">Application guide</a>
         <a href="skills.html">Skills</a>
         <a href="opportunities.html">Opportunities</a>
         <a href="blog.html">Blog</a>
@@ -522,118 +565,44 @@
   </div>
   <h1>Jobs for <em>SA</em> developers.</h1>
   <p>Junior roles, internships, and learnerships — curated for young South African developers. Free to browse, always.</p>
-  <a href="mailto:Ssibiya026m@ai.wethinkcode.co.za?subject=Post a Job on DevMzansi" class="post-job-btn">
-    💼 Post a job — from R250
-  </a>
+  <a href="submit-opportunity.html" class="post-job-btn">Submit an opportunity</a>
 </section>
 
 <!-- FILTERS -->
 <div class="filters-wrap">
-  <div class="filters">
-    <button class="filter-btn active" onclick="filterJobs('all', this)">All</button>
-    <button class="filter-btn" onclick="filterJobs('fulltime', this)">Full-time</button>
-    <button class="filter-btn" onclick="filterJobs('internship', this)">Internship</button>
-    <button class="filter-btn" onclick="filterJobs('learnership', this)">Learnership</button>
-    <button class="filter-btn" onclick="filterJobs('remote', this)">Remote</button>
+  <div class="filters" role="group" aria-label="Filter by opportunity type">
+    <button class="filter-btn active" type="button" aria-pressed="true" onclick="filterJobs('all', this)">All</button>
+    <button class="filter-btn" type="button" aria-pressed="false" onclick="filterJobs('fulltime', this)">Full-time</button>
+    <button class="filter-btn" type="button" aria-pressed="false" onclick="filterJobs('internship', this)">Internship</button>
+    <button class="filter-btn" type="button" aria-pressed="false" onclick="filterJobs('learnership', this)">Learnership</button>
+  </div>
+  <div class="filter-tools" role="search" aria-label="Search and refine opportunities">
+    <div><label for="job-search">Search opportunities</label><input id="job-search" type="search" placeholder="Role, company or location" autocomplete="off" /></div>
+    <div><label for="work-mode-filter">Work arrangement</label><select id="work-mode-filter"><option value="all">Any arrangement</option><option value="onsite">On-site</option><option value="hybrid">Hybrid</option><option value="remote">Remote</option></select></div>
+    <div><label for="pay-filter">Compensation</label><select id="pay-filter"><option value="all">Any compensation</option><option value="paid">Paid</option><option value="stipend">Stipend</option><option value="unpaid">Unpaid</option></select></div>
+    <div><label for="experience-filter">Experience level</label><select id="experience-filter"><option value="all">Any level</option><option value="entry">Entry-level / graduate</option><option value="junior">Junior · 0–2 years</option><option value="intermediate">Intermediate · 3–5 years</option></select></div>
   </div>
 </div>
 
 <!-- JOBS -->
 <div class="jobs-wrap">
-  <div class="jobs-count" id="jobs-count">Showing all opportunities</div>
-
-  <div id="jobs-list">
-
-    <!-- SAMPLE JOB 1 -->
-    <div class="job-card featured" data-type="internship">
-      <div class="job-left">
-        <div class="job-top">
-          <span class="job-title">Junior Frontend Developer Intern</span>
-          <span class="badge badge-featured">Featured</span>
-          <span class="badge badge-internship">Internship</span>
-        </div>
-        <div class="job-company">TechCo South Africa · Cape Town / Remote</div>
-        <div class="job-meta">
-          <span>🕐 6 months</span>
-          <span>💰 Stipend provided</span>
-          <span>📍 Hybrid</span>
-        </div>
-      </div>
-      <div class="job-right">
-        <a href="#" class="apply-btn">Apply →</a>
-        <span class="job-date">Posted today</span>
-      </div>
-    </div>
-
-    <!-- SAMPLE JOB 2 -->
-    <div class="job-card" data-type="learnership">
-      <div class="job-left">
-        <div class="job-top">
-          <span class="job-title">Software Development Learnership</span>
-          <span class="badge badge-new">New</span>
-          <span class="badge badge-learnership">Learnership</span>
-        </div>
-        <div class="job-company">Discovery · Johannesburg</div>
-        <div class="job-meta">
-          <span>🕐 12 months</span>
-          <span>💰 R6,000/month</span>
-          <span>📍 On-site</span>
-        </div>
-      </div>
-      <div class="job-right">
-        <a href="#" class="apply-btn">Apply →</a>
-        <span class="job-date">2 days ago</span>
-      </div>
-    </div>
-
-    <!-- SAMPLE JOB 3 -->
-    <div class="job-card" data-type="fulltime remote">
-      <div class="job-left">
-        <div class="job-top">
-          <span class="job-title">Junior JavaScript Developer</span>
-          <span class="badge badge-new">New</span>
-        </div>
-        <div class="job-company">Remote SA Startup · Remote</div>
-        <div class="job-meta">
-          <span>🕐 Full-time</span>
-          <span>💰 R15,000–R20,000/month</span>
-          <span>📍 Remote</span>
-        </div>
-      </div>
-      <div class="job-right">
-        <a href="#" class="apply-btn">Apply →</a>
-        <span class="job-date">5 days ago</span>
-      </div>
-    </div>
-
-  </div>
+  <p class="jobs-count" id="jobs-count" aria-live="polite">Loading verified opportunities…</p>
+  <p id="jobs-error" class="jobs-count" role="status" aria-live="polite"></p>
+  <div id="jobs-list"></div>
 
   <!-- POST A JOB CTA -->
   <div class="post-cta">
-    <h3>Hiring junior SA developers?</h3>
-    <p>Post your opportunity directly to an engaged community of young South African developers.</p>
-    <div class="pricing">
-      <div class="price-tag">
-        <span class="amount">R250</span>
-        <span class="label">Basic · 7 days</span>
-      </div>
-      <div class="price-tag">
-        <span class="amount">R500</span>
-        <span class="label">Featured · 14 days</span>
-      </div>
-      <div class="price-tag">
-        <span class="amount">R1,500</span>
-        <span class="label">Partner · Monthly</span>
-      </div>
-    </div>
-    <a href="mailto:Ssibiya026m@ai.wethinkcode.co.za?subject=Post a Job on DevMzansi" class="contact-btn">Get in touch →</a>
+    <h3>Hiring junior South African developers?</h3>
+    <p>Submit a role for review. Approved listings appear on the board, and applicants apply directly with your organisation.</p>
+    <a href="submit-opportunity.html" class="contact-btn">Submit an opportunity</a>
+    <p><a href="application-guide.html">Read our application guide</a></p>
   </div>
 </div>
 
 <footer class="site-footer">
   <div class="site-footer__inner">
     <section class="site-footer__intro" aria-labelledby="footer-brand-jobs"><h2 class="site-footer__wordmark" id="footer-brand-jobs">DEVMZANSI</h2><p class="site-footer__statement">Made in South Africa, rooted in community. Learn, find opportunities, and build with people who understand the Mzansi context.</p><p class="site-footer__availability"><span aria-hidden="true"></span> Open to learners, builders and collaborators</p><div class="site-footer__actions"><a class="site-footer__button site-footer__button--primary" href="assistant.html">Ask Princess 👸</a><a class="site-footer__button" href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank" rel="noopener noreferrer">Join the community <span aria-hidden="true">→</span></a></div></section>
-    <div class="site-footer__links"><div><h2>Pages</h2><nav aria-label="Footer pages"><a href="index.html">Home</a><a href="jobs.html">Jobs</a><a href="skills.html">Skills</a><a href="opportunities.html">Opportunities</a><a href="blog.html">Blog</a><a href="assistant.html">Ask Princess 👸</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div><div><h2>Connect</h2><nav aria-label="Connect with DevMzansi"><a href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank" rel="noopener noreferrer">WhatsApp community</a><a href="https://discord.gg/PyebGZGcb" target="_blank" rel="noopener noreferrer">Discord server</a><a href="mailto:Ssibiya026m@ai.wethinkcode.co.za">Contact us</a><a href="https://ko-fi.com/devmzansi" target="_blank" rel="noopener noreferrer">Support DevMzansi</a></nav></div></div>
+    <div class="site-footer__links"><div><h2>Pages</h2><nav aria-label="Footer pages"><a href="index.html">Home</a><a href="jobs.html">Jobs</a><a href="application-guide.html">Application guide</a><a href="skills.html">Skills</a><a href="opportunities.html">Opportunities</a><a href="blog.html">Blog</a><a href="assistant.html">Ask Princess 👸</a><a href="moderate.html">Moderator sign-in</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></nav></div><div><h2>Connect</h2><nav aria-label="Connect with DevMzansi"><a href="https://chat.whatsapp.com/D6U5zMjgJLe9VFYkMblQkc" target="_blank" rel="noopener noreferrer">WhatsApp community</a><a href="https://discord.gg/PyebGZGcb" target="_blank" rel="noopener noreferrer">Discord server</a><a href="mailto:Ssibiya026m@ai.wethinkcode.co.za">Contact us</a><a href="https://ko-fi.com/devmzansi" target="_blank" rel="noopener noreferrer">Support DevMzansi</a></nav></div></div>
     <div class="site-footer__bottom"><span>© 2026 DevMzansi. All rights reserved.</span><span>Built by Nation · Durban, South Africa</span></div>
   </div>
 </footer>
@@ -668,27 +637,131 @@
     }
   });
 
-  function filterJobs(type, btn) {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+  const categoryNames = { fulltime: 'Full-time', internship: 'Internship', learnership: 'Learnership' };
+  const experienceNames = { entry: 'Entry-level / graduate', junior: 'Junior · 0–2 years', intermediate: 'Intermediate · 3–5 years', all: 'Open to all experience levels' };
+  let activeJobCategory = 'all';
+  let verifiedJobs = [];
 
+  function createJobElement(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+
+  function formatSouthAfricanDate(date) {
+    return new Intl.DateTimeFormat('en-ZA', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Africa/Johannesburg' }).format(date);
+  }
+
+  function displayDate(value) {
+    return formatSouthAfricanDate(new Date(`${value}T12:00:00+02:00`));
+  }
+
+  function createJobCard(job) {
+    const card = createJobElement('article', 'job-card');
+    const payType = (job.compensation || '').split(' — ')[0].toLowerCase();
+    card.dataset.type = job.category;
+    card.dataset.mode = job.workMode;
+    card.dataset.experience = job.experienceLevel || 'all';
+    card.dataset.pay = ['paid', 'stipend', 'unpaid'].includes(payType) ? payType : 'paid';
+    card.dataset.search = [job.title, job.company, job.location, job.description, job.workMode, job.compensation].join(' ').toLowerCase();
+
+    const left = createJobElement('div', 'job-left');
+    const top = createJobElement('div', 'job-top');
+    top.append(createJobElement('span', 'job-title', job.title));
+    const category = createJobElement('span', `badge badge-${job.category}`, categoryNames[job.category] || 'Opportunity');
+    top.append(category);
+    left.append(top);
+    left.append(createJobElement('div', 'job-company', `${job.company} · ${job.location}`));
+    const meta = createJobElement('div', 'job-meta');
+    if (job.duration) meta.append(createJobElement('span', '', job.duration));
+    if (job.compensation) meta.append(createJobElement('span', '', job.compensation));
+    meta.append(createJobElement('span', '', experienceNames[job.experienceLevel] || 'Open to all experience levels'));
+    meta.append(createJobElement('span', '', ({ onsite: 'On-site', hybrid: 'Hybrid', remote: 'Remote' })[job.workMode] || job.workMode));
+    left.append(meta);
+    left.append(createJobElement('p', 'job-description', job.description));
+
+    const right = createJobElement('div', 'job-right');
+    const apply = createJobElement('a', 'apply-btn', 'Apply');
+    apply.href = job.applicationUrl;
+    apply.target = '_blank';
+    apply.rel = 'noopener noreferrer';
+    apply.setAttribute('aria-label', `Apply for ${job.title} at ${job.company}`);
+    right.append(apply);
+    right.append(createJobElement('span', 'job-date', `Posted ${formatSouthAfricanDate(new Date(job.submittedAt))}`));
+    right.append(createJobElement('span', 'job-date', `Closes ${displayDate(job.closingDate)}`));
+    card.append(left, right);
+    return card;
+  }
+
+  function updateJobFilters() {
+    const query = document.getElementById('job-search').value.trim().toLowerCase();
+    const workMode = document.getElementById('work-mode-filter').value;
+    const payType = document.getElementById('pay-filter').value;
+    const experience = document.getElementById('experience-filter').value;
     const cards = document.querySelectorAll('.job-card');
     let visible = 0;
-
     cards.forEach(card => {
-      if (type === 'all' || card.dataset.type?.includes(type)) {
-        card.style.display = 'flex';
-        visible++;
-      } else {
-        card.style.display = 'none';
-      }
+      const matches = (activeJobCategory === 'all' || card.dataset.type === activeJobCategory)
+        && (workMode === 'all' || card.dataset.mode === workMode)
+        && (payType === 'all' || card.dataset.pay === payType)
+        && (experience === 'all' || card.dataset.experience === experience || card.dataset.experience === 'all')
+        && (!query || card.dataset.search.includes(query));
+      card.hidden = !matches;
+      if (matches) visible++;
     });
-
-    document.getElementById('jobs-count').textContent =
-      type === 'all'
-        ? `Showing all opportunities`
-        : `Showing ${visible} ${type} opportunit${visible === 1 ? 'y' : 'ies'}`;
+    document.getElementById('jobs-count').textContent = verifiedJobs.length
+      ? `Showing ${visible} of ${verifiedJobs.length} verified opportunit${verifiedJobs.length === 1 ? 'y' : 'ies'}`
+      : 'No verified opportunities are open right now.';
+    const list = document.getElementById('jobs-list');
+    list.querySelector('.empty')?.remove();
+    if (!visible) {
+      const empty = createJobElement('div', 'empty');
+      empty.append(createJobElement('h3', '', verifiedJobs.length ? 'No matching opportunities' : 'New opportunities are on the way'));
+      empty.append(createJobElement('p', '', verifiedJobs.length ? 'Try changing your search or filters.' : 'Check back soon, or read the application guide while you prepare.'));
+      if (!verifiedJobs.length) {
+        const guide = createJobElement('a', 'contact-btn', 'Read the application guide');
+        guide.href = 'application-guide.html';
+        empty.append(guide);
+      }
+      list.append(empty);
+    }
   }
+
+  function filterJobs(type, button) {
+    activeJobCategory = type;
+    document.querySelectorAll('.filter-btn').forEach(item => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    updateJobFilters();
+  }
+
+  document.getElementById('job-search').addEventListener('input', updateJobFilters);
+  document.getElementById('work-mode-filter').addEventListener('change', updateJobFilters);
+  document.getElementById('pay-filter').addEventListener('change', updateJobFilters);
+  document.getElementById('experience-filter').addEventListener('change', updateJobFilters);
+
+  async function loadVerifiedJobs() {
+    const count = document.getElementById('jobs-count');
+    const error = document.getElementById('jobs-error');
+    try {
+      const response = await fetch('/api/jobs', { cache: 'no-store' });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.error || 'The jobs board is temporarily unavailable.');
+      verifiedJobs = Array.isArray(payload.jobs) ? payload.jobs : [];
+      const list = document.getElementById('jobs-list');
+      list.replaceChildren(...verifiedJobs.map(createJobCard));
+      error.textContent = '';
+      updateJobFilters();
+    } catch (loadError) {
+      count.textContent = 'Could not load verified opportunities.';
+      error.textContent = loadError.message || 'Please try again later.';
+    }
+  }
+
+  loadVerifiedJobs();
 </script>
 
 </body>
