@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f5f0e8" />
+  <title>Application guide — DevMzansi</title>
+  <meta name="description" content="Practical CV, application and interview guidance for early-career developers in South Africa." />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="footer.css" />
+  <link rel="stylesheet" href="site-theme.css" />
+  <style>
+    :root { --bg: #f5f0e8; --surface: #fffdf8; --ink: #183b30; --muted: #59685f; --line: rgba(24,59,48,.16); --green: #183b30; --gold: #c9a84c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, sans-serif; line-height: 1.7; }
+    main { width: min(100% - 2rem, 920px); margin: auto; padding: clamp(3rem, 8vw, 6rem) 0; }
+    .eyebrow { margin: 0 0 .8rem; color: #7b6121; font: 700 .75rem/1.4 'Space Grotesk', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+    h1 { max-width: 760px; margin: 0; font-size: clamp(2.3rem, 7vw, 4.3rem); letter-spacing: -.045em; }
+    h1 span { color: #947324; }
+    .lead { max-width: 660px; margin: 1.25rem 0 2rem; color: var(--muted); font-size: 1.1rem; }
+    .guide-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .guide-card { padding: clamp(1.2rem, 3vw, 1.7rem); border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); }
+    .step { display: inline-grid; width: 2rem; height: 2rem; place-items: center; border-radius: 50%; background: rgba(201,168,76,.16); color: #715a1d; font: 700 .85rem 'Space Grotesk', sans-serif; }
+    h2 { margin: .8rem 0 .6rem; font-size: 1.25rem; }
+    h3 { margin: 1.2rem 0 .3rem; font-size: 1rem; }
+    p { margin: .45rem 0; color: var(--muted); }
+    ul { margin: .7rem 0 0; padding-left: 1.2rem; color: var(--muted); }
+    li + li { margin-top: .4rem; }
+    .checklist { margin-top: 1rem; padding: 1.5rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--green); color: #fff; }
+    .checklist h2, .checklist p, .checklist ul { color: #fff; }
+    .checklist li::marker { color: #e8c97a; }
+    .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+    .button { display: inline-flex; min-height: 3rem; align-items: center; justify-content: center; padding: .75rem 1.1rem; border: 1px solid var(--green); border-radius: .75rem; color: var(--green); font: 600 .95rem 'Space Grotesk', sans-serif; text-decoration: none; }
+    .button.primary { background: var(--green); color: #fff; }
+    .button:focus-visible { outline: 3px solid #947324; outline-offset: 3px; }
+    @media (max-width: 650px) { .guide-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo">Dev<span>Mzansi</span></a>
+    <details class="site-menu">
+      <summary aria-label="Open site menu"><span></span><span></span><span></span></summary>
+      <div class="menu-dropdown">
+        <a href="index.html">Home</a><a href="jobs.html">Jobs</a><a href="skills.html">Skills</a><a href="opportunities.html">Opportunities</a><a href="blog.html">Blog</a><a href="assistant.html">Ask Princess</a><a href="application-guide.html">Application guide</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+      </div>
+    </details>
+  </nav>
+  <main>
+    <p class="eyebrow">Your next step starts here</p>
+    <h1>Apply with a little more <span>confidence.</span></h1>
+    <p class="lead">You don’t need years of experience to make a strong application. Be clear about what you can do, show how you learn, and make it easy for an employer to follow up.</p>
+    <section class="guide-grid" aria-label="Application steps">
+      <article class="guide-card"><span class="step">01</span><h2>Read the listing carefully</h2><p>Check the closing date, location, work arrangement, eligibility and application link. Confirm the role is still open on the employer’s own site before sharing personal details.</p></article>
+      <article class="guide-card"><span class="step">02</span><h2>Make your CV easy to scan</h2><p>Keep it concise and tailored to the role. Put your strongest relevant projects, tools and achievements near the top, with links to work you can show.</p><ul><li>Use clear headings and consistent dates.</li><li>Describe your contribution, not just the project.</li><li>Check spelling, contact details and link permissions.</li></ul></article>
+      <article class="guide-card"><span class="step">03</span><h2>Show your work</h2><p>A small finished project can say a lot. Link to a live demo or repository, explain the problem you solved, and mention what you learned or would improve next.</p></article>
+      <article class="guide-card"><span class="step">04</span><h2>Write a focused message</h2><p>Use a specific subject line, name the role, briefly explain why you’re interested, and attach only what the listing asks for. Follow the employer’s instructions first.</p></article>
+      <article class="guide-card"><span class="step">05</span><h2>Prepare for the conversation</h2><p>Practise explaining your projects in plain language. Be ready to talk through a challenge, how you approached it, and what you would do differently.</p></article>
+      <article class="guide-card"><span class="step">06</span><h2>Follow up professionally</h2><p>If the listing gives a response timeframe, respect it. Otherwise, one polite follow-up after a reasonable interval is enough. Keep applying while you wait.</p></article>
+    </section>
+    <aside class="checklist" aria-labelledby="checklist-title">
+      <h2 id="checklist-title">Before you press send</h2>
+      <ul><li>I meet the stated eligibility requirements.</li><li>My CV and project links open correctly.</li><li>I used the employer’s real application channel.</li><li>I have not sent passwords, banking details or unnecessary identity documents.</li></ul>
+    </aside>
+    <div class="actions"><a class="button primary" href="jobs.html">Browse verified opportunities</a><a class="button" href="assistant.html">Get help preparing</a></div>
+  </main>
+  <footer class="site-footer"><div class="site-footer__inner"><section class="site-footer__intro" aria-labelledby="footer-brand-guide"><h2 class="site-footer__wordmark" id="footer-brand-guide">DEVMZANSI</h2><p class="site-footer__statement">Made in South Africa, rooted in community. Learn, find opportunities, and build with people who understand the Mzansi context.</p><div class="site-footer__actions"><a class="site-footer__button site-footer__button--primary" href="jobs.html">Explore opportunities</a><a class="site-footer__button" href="index.html">Back to home</a></div></section><div class="site-footer__bottom"><span>© 2026 DevMzansi. All rights reserved.</span><span>Built by Nation · Durban, South Africa</span></div></div></footer>
+</body>
+</html>

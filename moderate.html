@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f5f0e8" />
+  <title>Review opportunities — DevMzansi</title>
+  <meta name="description" content="Review opportunity submissions for the DevMzansi jobs board." />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="footer.css" />
+  <link rel="stylesheet" href="site-theme.css" />
+  <style>
+    :root { --bg: #f5f0e8; --surface: #fffdf8; --surface-muted: #ede8df; --ink: #183b30; --muted: #59685f; --line: rgba(24,59,48,.16); --green: #183b30; --green-soft: #e8f0eb; --gold: #c9a84c; --red: #a43127; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font-family: Inter, sans-serif; line-height: 1.6; }
+    main { width: min(100% - 2rem, 900px); margin: auto; padding: 3.5rem 0 5rem; }
+    .eyebrow { margin: 0 0 .8rem; color: #7b6121; font: 700 .75rem/1.4 'Space Grotesk', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.2; }
+    h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); letter-spacing: -.04em; }
+    .intro { max-width: 610px; margin: .9rem 0 2rem; color: var(--muted); }
+    .panel { padding: clamp(1.25rem, 4vw, 2rem); border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); box-shadow: 0 18px 50px rgba(24,59,48,.06); }
+    .panel h2 { margin: 0 0 .4rem; font-size: 1.35rem; }
+    .muted { color: var(--muted); }
+    label { display: block; margin: 1.1rem 0 .35rem; font: 600 .88rem 'Space Grotesk', sans-serif; }
+    input, textarea { width: 100%; min-height: 3rem; padding: .8rem .9rem; border: 1px solid var(--line); border-radius: .7rem; background: #fff; color: var(--ink); font: inherit; }
+    input:focus, textarea:focus { outline: 3px solid rgba(201,168,76,.3); border-color: #907224; }
+    button { min-height: 2.8rem; padding: .65rem 1rem; border: 1px solid transparent; border-radius: .7rem; font: 600 .9rem 'Space Grotesk', sans-serif; cursor: pointer; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #907224; outline-offset: 3px; }
+    .primary { margin-top: 1rem; background: var(--green); color: #fff; }
+    .secondary { border-color: var(--line); background: transparent; color: var(--ink); }
+    .danger { border-color: rgba(164,49,39,.25); background: #fff3f1; color: var(--red); }
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.2rem; }
+    .toolbar h2 { margin: 0; }
+    .submission { padding: 1.25rem; border: 1px solid var(--line); border-radius: .9rem; background: #fff; }
+    .submission + .submission { margin-top: .85rem; }
+    .submission h3 { margin: 0 0 .3rem; font-size: 1.1rem; }
+    .submission p { margin: .45rem 0; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .submission a { color: var(--green); }
+    .submission-meta { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin: .6rem 0; color: var(--muted); font-size: .84rem; }
+    .submission-actions { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1rem; }
+    .message { min-height: 1.5rem; margin: .9rem 0 0; color: var(--muted); font-size: .9rem; }
+    .message.error { color: var(--red); }
+    .hidden { display: none !important; }
+    @media (max-width: 520px) { .toolbar { align-items: flex-start; flex-direction: column; } .toolbar button { width: 100%; } }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo">Dev<span>Mzansi</span></a>
+    <details class="site-menu">
+      <summary aria-label="Open site menu"><span></span><span></span><span></span></summary>
+      <div class="menu-dropdown">
+        <a href="index.html">Home</a><a href="jobs.html">Jobs</a><a href="skills.html">Skills</a><a href="opportunities.html">Opportunities</a><a href="blog.html">Blog</a><a href="assistant.html">Ask Princess</a><a href="application-guide.html">Application guide</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a>
+      </div>
+    </details>
+  </nav>
+  <main>
+    <p class="eyebrow">DevMzansi · moderation</p>
+    <h1>Review opportunities</h1>
+    <p class="intro">Check each listing for accurate details, a working application link and a clear closing date before publishing it.</p>
+    <section class="panel" id="sign-in-panel" aria-labelledby="sign-in-title">
+      <h2 id="sign-in-title">Moderator sign-in</h2>
+      <p class="muted">Use the private moderation token configured for this project. Your session expires after eight hours. If sign-in is not configured in this environment, contact the site administrator.</p>
+      <form id="sign-in-form">
+        <label for="moderator-token">Moderation token</label>
+        <input id="moderator-token" name="token" type="password" autocomplete="current-password" required />
+        <button class="primary" type="submit">Sign in</button>
+      </form>
+      <p class="message" id="sign-in-message" role="status" aria-live="polite"></p>
+    </section>
+    <section class="panel hidden" id="queue-panel" aria-labelledby="queue-title">
+      <div class="toolbar"><div><h2 id="queue-title">Pending submissions</h2><p class="muted" id="queue-count"></p></div><button class="secondary" id="sign-out" type="button">Sign out</button></div>
+      <div id="submission-list" aria-live="polite"></div>
+      <p class="message" id="queue-message" role="status" aria-live="polite"></p>
+    </section>
+  </main>
+  <script>
+    const signInPanel = document.getElementById('sign-in-panel');
+    const queuePanel = document.getElementById('queue-panel');
+    const signInMessage = document.getElementById('sign-in-message');
+    const queueMessage = document.getElementById('queue-message');
+    const list = document.getElementById('submission-list');
+
+    async function api(path, options = {}) {
+      const response = await fetch(path, { credentials: 'same-origin', ...options, headers: { 'Content-Type': 'application/json', ...options.headers } });
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(payload.error || 'The request could not be completed.');
+      return payload;
+    }
+
+    function addText(parent, tag, text, className) {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      element.textContent = text;
+      parent.append(element);
+      return element;
+    }
+
+    function makeLink(parent, label, href) {
+      const link = document.createElement('a');
+      link.href = href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = label;
+      parent.append(link);
+    }
+
+    function showSignIn() {
+      signInPanel.classList.remove('hidden');
+      queuePanel.classList.add('hidden');
+      document.getElementById('moderator-token').value = '';
+    }
+
+    async function loadQueue() {
+      queueMessage.textContent = '';
+      const { submissions } = await api('/api/jobs?admin=1');
+      list.replaceChildren();
+      document.getElementById('queue-count').textContent = `${submissions.length} awaiting review`;
+      if (!submissions.length) {
+        addText(list, 'p', 'You’re all caught up. New submissions will appear here.', 'muted');
+        return;
+      }
+      for (const submission of submissions) {
+        const card = document.createElement('article');
+        card.className = 'submission';
+        addText(card, 'h3', submission.title);
+        const meta = document.createElement('div');
+        meta.className = 'submission-meta';
+        const experience = ({ entry: 'Entry-level / graduate', junior: 'Junior · 0–2 years', intermediate: 'Intermediate · 3–5 years', all: 'Open to all levels' })[submission.experienceLevel] || 'Experience level not set';
+        meta.append(`${submission.company} · ${submission.category} · ${experience} · ${submission.workMode} · Closes ${submission.closingDate}`);
+        card.append(meta);
+        addText(card, 'p', `${submission.location}${submission.compensation ? ` · ${submission.compensation}` : ''}${submission.duration ? ` · ${submission.duration}` : ''}`);
+        addText(card, 'p', submission.description);
+        addText(card, 'p', `Submitted by ${submission.submitterName} (${submission.submitterEmail})`);
+        makeLink(card, 'Open application link', submission.applicationUrl);
+        const actions = document.createElement('div');
+        actions.className = 'submission-actions';
+        const approve = document.createElement('button');
+        approve.className = 'primary';
+        approve.type = 'button';
+        approve.textContent = 'Approve and publish';
+        approve.addEventListener('click', () => review(submission.id, 'approved', approve));
+        const reject = document.createElement('button');
+        reject.className = 'danger';
+        reject.type = 'button';
+        reject.textContent = 'Reject';
+        reject.addEventListener('click', () => review(submission.id, 'rejected', reject));
+        actions.append(approve, reject);
+        card.append(actions);
+        list.append(card);
+      }
+    }
+
+    async function review(id, status, button) {
+      button.disabled = true;
+      queueMessage.textContent = '';
+      try {
+        await api('/api/jobs', { method: 'PATCH', body: JSON.stringify({ id, status }) });
+        await loadQueue();
+      } catch (error) {
+        if (error.message.includes('Sign in')) showSignIn();
+        queueMessage.className = 'message error';
+        queueMessage.textContent = error.message;
+        button.disabled = false;
+      }
+    }
+
+    const signInForm = document.getElementById('sign-in-form');
+    signInForm.addEventListener('keydown', event => {
+      if (event.key === 'Enter' && (event.isComposing || event.keyCode === 229)) event.preventDefault();
+    });
+
+    signInForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (event.nativeEvent?.isComposing || event.keyCode === 229) return;
+      signInMessage.className = 'message';
+      signInMessage.textContent = 'Checking your token…';
+      try {
+        await api('/api/jobs/session', { method: 'POST', body: JSON.stringify({ token: document.getElementById('moderator-token').value }) });
+        signInPanel.classList.add('hidden');
+        queuePanel.classList.remove('hidden');
+        await loadQueue();
+      } catch (error) {
+        signInMessage.className = 'message error';
+        signInMessage.textContent = error.message;
+      } finally {
+        document.getElementById('moderator-token').value = '';
+      }
+    });
+
+    document.getElementById('sign-out').addEventListener('click', async () => {
+      try { await api('/api/jobs/session', { method: 'DELETE' }); } finally { showSignIn(); }
+    });
+
+    loadQueue().then(() => {
+      signInPanel.classList.add('hidden');
+      queuePanel.classList.remove('hidden');
+    }).catch(error => {
+      if (!error.message.includes('Sign in')) {
+        signInMessage.className = 'message error';
+        signInMessage.textContent = error.message;
+      }
+    });
+  </script>
+</body>
+</html>

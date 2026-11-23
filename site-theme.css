@@ -234,3 +234,86 @@ hr,
     animation-iteration-count: 1 !important;
   }
 }
+
+body :is(h1, h2, h3, h4, h5, h6, p, li, a, label, strong, em, small, dt, dd, blockquote, figcaption, th, td, span, .nav-logo, .nav-link, .menu-dropdown a, .hero-badge, .badge, .tag, .section-label, .eyebrow, .stat-number, .stat-label, .last-updated, .site-footer__wordmark, .official-links-label, .official-link) {
+  color: var(--text) !important;
+}
+
+body :is(.nav-cta, .nav-cta *, .btn-primary, .btn-primary *, .btn-wa, .btn-wa *, .btn-dc, .btn-dc *, .btn-primary, .submit-btn, .contact-btn, .send-btn, .cta-button, .button.primary, .site-footer__button--primary, .princess-widget__trigger, .filter-btn.active, .btn-secondary:hover, .message.user .bubble, .message.user .bubble *, .avatar.user, .checklist, .checklist *) {
+  color: var(--white) !important;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+}
+
+.site-nav > .nav-logo {
+  text-decoration: none;
+}
+
+.site-menu {
+  position: relative;
+}
+
+.site-menu > summary {
+  display: flex;
+  width: 2.5rem;
+  min-height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px;
+  border-radius: 0.5rem;
+  color: var(--green);
+  cursor: pointer;
+  list-style: none;
+}
+
+.site-menu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.site-menu > summary:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.site-menu > summary span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--green);
+}
+
+.site-menu[open] > .menu-dropdown {
+  display: flex;
+}
+
+.site-menu .menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 200;
+  min-width: 200px;
+  margin-top: 0.6rem;
+  padding: 0.5rem;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  box-shadow: var(--theme-shadow);
+}
+
+.site-menu .menu-dropdown a {
+  padding: 0.6rem 0.8rem;
+  border-radius: 0.4rem;
+  text-decoration: none;
+}
+
+.site-menu .menu-dropdown a:hover {
+  background: var(--gold-dim);
+}

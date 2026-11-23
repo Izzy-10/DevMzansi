@@ -28,6 +28,8 @@ try {
   if (error.code !== 'ENOENT') throw error;
 }
 
+const { default: jobsHandler } = await import('./api/jobs.js');
+
 function sendJson(res, statusCode, payload) {
   res.writeHead(statusCode, {
     'Cache-Control': 'no-store',
@@ -35,6 +37,24 @@ function sendJson(res, statusCode, payload) {
     'X-Content-Type-Options': 'nosniff',
   });
   res.end(JSON.stringify(payload));
+}
+
+async function createFunctionResponse(res) {
+  return {
+    setHeader(name, value) {
+      res.setHeader(name, value);
+      return this;
+    },
+    status(statusCode) {
+      res.statusCode = statusCode;
+      return this;
+    },
+    json(payload) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.end(JSON.stringify(payload));
+      return this;
+    },
+  };
 }
 
 async function handlePrincessRequest(req, res) {
@@ -53,23 +73,19 @@ async function handlePrincessRequest(req, res) {
   }
 
   req.body = Buffer.concat(chunks).toString('utf8');
-  const response = {
-    setHeader(name, value) {
-      res.setHeader(name, value);
-      return this;
-    },
-    status(statusCode) {
-      res.statusCode = statusCode;
-      return this;
-    },
-    json(payload) {
-      res.setHeader('Content-Type', 'application/json; charset=utf-8');
-      res.end(JSON.stringify(payload));
-      return this;
-    },
-  };
+  await princessHandler(req, await createFunctionResponse(res));
+}
 
-  await princessHandler(req, response);
+async function handleJobsRequest(req, res) {
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of req) {
+    size += chunk.length;
+    if (size > 24_000) return sendJson(res, 413, { error: 'Submission is too large.' });
+    chunks.push(chunk);
+  }
+  req.body = Buffer.concat(chunks).toString('utf8');
+  await jobsHandler(req, await createFunctionResponse(res));
 }
 
 async function handleStaticRequest(req, res) {
@@ -125,12 +141,15 @@ const server = createServer(async (req, res) => {
   try {
     if (requestPath === '/api/princess') {
       await handlePrincessRequest(req, res);
+    } else if (requestPath === '/api/jobs' || requestPath === '/api/jobs/session') {
+      await handleJobsRequest(req, res);
     } else {
       await handleStaticRequest(req, res);
     }
   } catch (error) {
     console.error('Development request failed:', error);
-    if (!res.headersSent) sendJson(res, 500, { reply: 'The request could not be completed.' });
+    const isJobsApi = requestPath === '/api/jobs' || requestPath === '/api/jobs/session';
+    if (!res.headersSent) sendJson(res, 500, isJobsApi ? { error: 'The jobs service is temporarily unavailable.' } : { reply: 'The request could not be completed.' });
     else res.end();
   }
 });
